@@ -1,0 +1,22 @@
+.row
+{
+	background-color: #ccc;
+
+}
+.col
+{
+	background-color: red;
+}
+.box
+{
+	background-color: #00a0e9;
+	padding: 5px 0;
+	text-align: center;
+}
+.message_container
+{
+	width: 100%;
+	height: 700px;
+	overflow: scroll;
+	background-color: #ccc;
+}

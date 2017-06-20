@@ -1,0 +1,11 @@
+.layer{
+	width: 600px;
+	height: 200px;
+	background-color: grey;
+}
+.layer>div
+{
+	width: 400px;
+	height: 200px;
+	background-color: red;
+}
