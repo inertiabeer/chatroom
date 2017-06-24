@@ -14,7 +14,7 @@ import React, { Component } from 'react';
 			<div>
 				<h2>{this.state.name}</h2>
 				<p>{this.state.time}</p>
-				<p>{this.state.message}</p>
+				<p><h2>{this.state.message}</h2></p>
 			</div>
 		);
 	}

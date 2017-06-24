@@ -7,6 +7,13 @@ import {Icon,Row,Col}from 'antd';
 import "../css/main.css";
 import Send from '../chatroom/Send.js';
 import Message from '../chatroom/Message.js';
+import $ from 'jquery';
+$.post('/getname',function(data,status){
+	console.log(data);//这里获取一下这个socket的用户名
+	//向服务器发送这个名字
+	socket.emit('sendname',JSON.parse(data));
+
+})
 var messages=[];//这里应该传入一个对象数组，分别由time，name，message
 var listItems=[];
 socket.on('serverMessage',function(content){
