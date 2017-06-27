@@ -12,9 +12,8 @@ import React, { Component } from 'react';
 	render() {
 		return (
 			<div>
-				<h2>{this.state.name}</h2>
-				<p>{this.state.time}</p>
-				<p><h2>{this.state.message}</h2></p>
+				<p><b>{this.state.name}</b>&nbsp;&nbsp;{this.state.time}</p>
+				<h2><p>{this.state.message}</p></h2>
 			</div>
 		);
 	}
