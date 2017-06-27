@@ -9,6 +9,7 @@ import {Button} from 'antd';
 		};
 		this.handleChange=this.handleChange.bind(this);
 		this.handleSubmit=this.handleSubmit.bind(this);
+		this.handleKey=this.handleKey.bind(this);
 	}
 	handleChange(event){
 		this.setState({value:event.target.value});
@@ -19,10 +20,19 @@ import {Button} from 'antd';
 		this.setState({value:''});
 
 	}
+	handleKey(event){
+		var key=(event.keyCode?event.keyCode:event.which);
+		if(key=='13')
+		{
+		socket.emit('client',this.state.value);
+		this.setState({value:''});
+		}
+
+	}
 	render() {
 		return (
-			<div>
-			<input type="text" value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeHolder}/>
+			<div className='send'>
+			<textarea rows="4" type="text" value={this.state.value} onKeyUp={this.handleKey} onChange={this.handleChange} placeholder={this.state.placeHolder}/>
 
 			<Button onClick={this.handleSubmit}>发送消息</Button>
 			</div>
