@@ -3,23 +3,88 @@
 <head>
 	<meta charset="UTF-8">
 	<title>用户登录</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="bookmark" href="favicon.ico">
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<style>
+	 @keyframes roll 
+	 {
+	 	0%
+	 	{
+	 		text-shadow:0 0 0px white;
+
+	 	}
+	 	25%
+	 	{
+	 		text-shadow:0 0 20px white;
+	 	}
+	 	50%
+	 	{
+	 		text-shadow:0 0 30px white;
+
+	 	}
+	 	75%
+	 	{
+	 		text-shadow:0 0 20px white;
+
+	 	}
+	 	100%
+	 	{
+	 		text-shadow:0 0 0px white;
+	 	}
+	 }
+	body
+	{
+	background-color: #4A374A;
+	color: #fff;
+	}
+	h1
+	{
+		text-shadow:0 0 10px;
+		transition: 1s;
+		animation: roll 3s linear infinite;
+	}
+	h1:hover
+	{
+		filter: blur(3px);
+	}
+
 		.container
 		{
 			text-align: center;
-			width: 500px;
+			width: 350px;
+			border:3px solid #4A374A;
+			box-shadow: 0 0 0 10px #4A374A, 0 0 5px 15px white;
+			transition: 2s;
+
 		}
+		.container:hover
+		{
+			box-shadow: 0 0 0 10px #4A374A, 0 0 10px 25px white;
+		}
+
 		.btn-danger
 		{
 			float: left;
-			margin-left: 50px;
+			margin-left: 0px;
 		}
 		.btn-info
 		{
 			float: right;
-			margin-right: 50px;
+			margin-right: 0px;
 		}
+		.container
+		{
+			position: absolute;
+			top: 10%;
+			left: 50%;
+			transform: translate(-50%, 0);
+		}
+		label
+		{
+			font-size: 1em;
+		}
+
 	</style>
 </head>
 <body>
@@ -28,15 +93,15 @@
 	<form action="/login" method="post" class="form-horizontal">
 	<div class="form-group">
     <label for="username" class="col-sm-2 control-label">Username</label>
-    <div class="col-sm-10">
+<!--     <div class="col-sm-10"> -->
       <input type="text" class="form-control" id="username" name="username" placeholder="Username">
-    </div>
+<!--     </div> -->
     </div>
      <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="password" placeholder="Password" name="password">
-    </div>
+<!--     <div class="col-sm-10"> -->
+      <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+<!--     </div> -->
      </div>
      <button class="btn btn-info" onclick='login(event)'>Log in</button>
      <button class="btn btn-danger" onclick="logup(event)">Log up</button>
@@ -48,22 +113,22 @@
 	<form action="/logup" method="post" class="form-horizontal">
 	<div class="form-group">
     <label for="username" class="col-sm-2 control-label">Username</label>
-    <div class="col-sm-10">
+<!--     <div class="col-sm-10"> -->
       <input type="text" class="form-control" id="username2" name="username" placeholder="Username">
-    </div>
+  <!--   </div> -->
     </div>
      <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="password2" name="password" placeholder="Password">
-    </div>
+  <!--   <div class="col-sm-10"> -->
+      <input type="password" class="form-control" id="password2" name="password" placeholder="Password">
+  <!--   </div> -->
 
      </div>
      <div class="form-group">
     <label  class="col-sm-2 control-label">Retype</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="repassword" placeholder="Retype">
-    </div>
+ <!--    <div class="col-sm-10"> -->
+      <input type="password" class="form-control" id="repassword" placeholder="Retype">
+ <!--    </div> -->
     
      </div>
      
@@ -90,6 +155,7 @@
 		var user={};
 		user.username=document.getElementById('username').value;
 		user.password=document.getElementById('password').value;
+		console.log(user.password);
 		if(user.username==''||user.password=='')
 		{
 			alert('密码和用户不能为空')
@@ -97,6 +163,7 @@
 		else{
 		var xmlhttp=new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			var text=xmlhttp.responseText;
 			console.log(text);
 			if(text=='y')
@@ -104,6 +171,11 @@
 			location.href='http://'+location.host+'/';
 			console.log(location.host);
 			}
+			else 
+			{
+				alert(text);
+			}
+		}
 
 
 		}
@@ -140,10 +212,12 @@
 		user.password=document.getElementById('password2').value;
 		var xmlhttp=new XMLHttpRequest();
 		xmlhttp.onreadystatechange=function(){
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
 			// location.href='http://'+location.host+'/';
 			// console.log(location.host);
 		containers[0].style.display='block';
 		containers[1].style.display='none';
+	}
 
 
 		}
