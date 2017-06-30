@@ -22063,6 +22063,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var nameStyle = {
+	color: '#ccc',
+	fontSize: '2em',
+	marginRight: '3em'
+
+};
+var bubble = {
+	fontSize: '2.4em',
+	position: 'relative'
+
+};
+var triangle = {
+	width: '0',
+	height: '0',
+	border: '0.8rem solid #fff',
+	borderRight: '3rem solid #ccc',
+	position: 'absolute',
+	top: '0',
+	left: '-1rem',
+	transform: 'rotate(30deg)',
+	zIndex: '-1'
+
+};
+var container = {
+	backgroundColor: '#ccc',
+	marginLeft: '1rem',
+	borderRadius: '10px',
+	zIndex: '100',
+	wordBreak: 'break-all'
+
+};
+
 var Message = function (_Component) {
 	_inherits(Message, _Component);
 
@@ -22089,20 +22121,25 @@ var Message = function (_Component) {
 					'p',
 					null,
 					_react2.default.createElement(
-						'b',
-						null,
+						'span',
+						{ style: nameStyle },
 						this.state.name
 					),
 					'\xA0\xA0',
 					this.state.time
 				),
 				_react2.default.createElement(
-					'h2',
-					null,
+					'div',
+					{ style: bubble },
+					_react2.default.createElement('div', { style: triangle }),
 					_react2.default.createElement(
-						'p',
-						null,
-						this.state.message
+						'div',
+						{ style: container },
+						_react2.default.createElement(
+							'p',
+							null,
+							this.state.message
+						)
 					)
 				)
 			);
