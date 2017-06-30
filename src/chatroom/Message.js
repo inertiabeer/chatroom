@@ -15,7 +15,7 @@ const triangle=
 	width:'0',
 	height:'0',
 	border:'0.8rem solid #fff',
-	borderRight:'3rem solid #ccc',
+	borderRight:'3rem solid #f2f7f3',
 	position:'absolute',
 	top:'0',
 	left:'-1rem',
@@ -27,11 +27,15 @@ const triangle=
 }
 const container=
 {
-	backgroundColor:'#ccc',
+	backgroundColor:'#f2f7f3',
 	marginLeft:'1rem',
-	borderRadius: '10px',
+	borderRadius: '8px',
 	zIndex:'100',
-	wordBreak:'break-all'
+	width:'auto',
+	display:'inline-block',
+	wordBreak:'break-all',
+	paddingLeft:'10px',
+	paddingRight:'10px'
 
 
 }

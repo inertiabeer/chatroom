@@ -22091,7 +22091,10 @@ var container = {
 	marginLeft: '1rem',
 	borderRadius: '10px',
 	zIndex: '100',
-	wordBreak: 'break-all'
+	width: 'auto',
+	display: 'inline-block',
+	wordBreak: 'break-all',
+	padding: '10px'
 
 };
 
