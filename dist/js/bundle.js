@@ -11246,95 +11246,55 @@ module.exports = getIteratorFn;
 
 /***/ }),
 /* 129 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Send_js__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Message_js__ = __webpack_require__(139);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Send = __webpack_require__(140);
-
-var _Send2 = _interopRequireDefault(_Send);
-
-var _Message = __webpack_require__(139);
-
-var _Message2 = _interopRequireDefault(_Message);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Box = function (_Component) {
-	_inherits(Box, _Component);
-
-	function Box(props) {
-		_classCallCheck(this, Box);
-
-		var _this = _possibleConstructorReturn(this, (Box.__proto__ || Object.getPrototypeOf(Box)).call(this, props));
-
-		_this.state = {
+class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	constructor(props) {
+		super(props);
+		this.state = {
 			listItems: []
 		};
-
-		return _this;
 	}
+	componentDidMount() {
+		var that = this;
+		socket.on('serverMessage', function (content) {
 
-	_createClass(Box, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			var that = this;
-			socket.on('serverMessage', function (content) {
+			let message = JSON.parse(content);
+			that.setState({ listItems: that.state.listItems.concat([__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Message_js__["a" /* default */], { time: message.time, name: message.name, message: message.message })]) });
+		});
+	}
+	componentDidUpdate(prevProps, prevState) {
 
-				var message = JSON.parse(content);
-				that.setState({ listItems: that.state.listItems.concat([_react2.default.createElement(_Message2.default, { time: message.time, name: message.name, message: message.message })]) });
-			});
+		var node = document.getElementsByClassName('message_container'); //获取整个的消息框
+		if (node[0].scrollHeight >= node[0].clientHeight) {
+			node[0].scrollIntoView(false);
+			node[0].scrollTop = node[0].scrollHeight;
 		}
-	}, {
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate(prevProps, prevState) {
-
-			var node = document.getElementsByClassName('message_container'); //获取整个的消息框
-			if (node[0].scrollHeight >= node[0].clientHeight) {
-				node[0].scrollIntoView(false);
-				node[0].scrollTop = node[0].scrollHeight;
-			}
-		}
-	}, {
-		key: 'componentWillUpdate',
-		value: function componentWillUpdate(nextProps, nextState) {}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
+	}
+	componentWillUpdate(nextProps, nextState) {}
+	render() {
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			{ className: 'message_box' },
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'div',
-				{ className: 'message_box' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'message_container' },
-					this.state.listItems
-				),
-				_react2.default.createElement(_Send2.default, null)
-			);
-		}
-	}]);
-
-	return Box;
-}(_react.Component);
-
-exports.default = Box;
+				{ className: 'message_container' },
+				this.state.listItems
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Send_js__["a" /* default */], null)
+		);
+	}
+}
+/* harmony default export */ __webpack_exports__["a"] = (Box);
 
 /***/ }),
 /* 130 */
@@ -22040,45 +22000,28 @@ module.exports = exports['default'];
 
 /***/ }),
 /* 139 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var nameStyle = {
-	color: '#ccc',
+const nameStyle = {
+	color: '#63223f',
 	fontSize: '2em',
 	marginRight: '3em'
 
 };
-var bubble = {
+const bubble = {
 	fontSize: '2.4em',
 	position: 'relative'
 
 };
-var triangle = {
+const triangle = {
 	width: '0',
 	height: '0',
 	border: '0.8rem solid #fff',
-	borderRight: '3rem solid #ccc',
+	borderRight: '3rem solid #f2f7f3',
 	position: 'absolute',
 	top: '0',
 	left: '-1rem',
@@ -22086,206 +22029,171 @@ var triangle = {
 	zIndex: '-1'
 
 };
-var container = {
-	backgroundColor: '#ccc',
+const container = {
+	backgroundColor: '#f2f7f3',
 	marginLeft: '1rem',
-	borderRadius: '10px',
+	borderRadius: '8px',
 	zIndex: '100',
 	width: 'auto',
 	display: 'inline-block',
 	wordBreak: 'break-all',
-	padding: '10px'
+	paddingLeft: '10px',
+	paddingRight: '10px'
 
 };
-
-var Message = function (_Component) {
-	_inherits(Message, _Component);
-
-	function Message(props) {
-		_classCallCheck(this, Message);
-
-		var _this = _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, props));
-
-		_this.state = {
-			time: _this.props.time,
-			message: _this.props.message,
-			name: _this.props.name
+class Message extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+	constructor(props) {
+		super(props);
+		this.state = {
+			time: this.props.time,
+			message: this.props.message,
+			name: this.props.name
 		};
-		return _this;
 	}
 
-	_createClass(Message, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
+	render() {
+		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+			'div',
+			null,
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'p',
 				null,
-				_react2.default.createElement(
-					'p',
-					null,
-					_react2.default.createElement(
-						'span',
-						{ style: nameStyle },
-						this.state.name
-					),
-					'\xA0\xA0',
-					this.state.time
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+					'span',
+					{ style: nameStyle },
+					this.state.name
 				),
-				_react2.default.createElement(
+				'\xA0\xA0',
+				this.state.time
+			),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+				'div',
+				{ style: bubble },
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: triangle }),
+				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 					'div',
-					{ style: bubble },
-					_react2.default.createElement('div', { style: triangle }),
-					_react2.default.createElement(
-						'div',
-						{ style: container },
-						_react2.default.createElement(
-							'p',
-							null,
-							this.state.message
-						)
+					{ style: container },
+					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+						'p',
+						null,
+						this.state.message
 					)
 				)
-			);
-		}
-	}]);
-
-	return Message;
-}(_react.Component);
-
-exports.default = Message;
+			)
+		);
+	}
+}
+/* harmony default export */ __webpack_exports__["a"] = (Message);
 
 /***/ }),
 /* 140 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_antd_lib_button_style_css__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_antd_lib_button_style_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_antd_lib_button_style_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_antd_lib_button__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_antd_lib_button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_antd_lib_button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
 
-var _css = __webpack_require__(137);
 
-var _button = __webpack_require__(136);
-
-var _button2 = _interopRequireDefault(_button);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(15);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Send = function (_Component) {
-	_inherits(Send, _Component);
-
-	function Send(props) {
-		_classCallCheck(this, Send);
-
-		var _this = _possibleConstructorReturn(this, (Send.__proto__ || Object.getPrototypeOf(Send)).call(this, props));
-
-		_this.state = {
-			value: '',
+class Send extends __WEBPACK_IMPORTED_MODULE_2_react__["Component"] {
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: "",
 			placeHolder: '在这里输入消息'
 		};
-		_this.handleChange = _this.handleChange.bind(_this);
-		_this.handleSubmit = _this.handleSubmit.bind(_this);
-		_this.handleKey = _this.handleKey.bind(_this);
-		return _this;
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleKey = this.handleKey.bind(this);
 	}
+	handleChange(event) {
+		this.setState({ value: event.target.value });
+	}
+	handleSubmit(event) {
+		let m_value = this.state.value;
+		console.log(m_value == ''); //这里需要调用value的字符值
 
-	_createClass(Send, [{
-		key: 'handleChange',
-		value: function handleChange(event) {
-			this.setState({ value: event.target.value });
-		}
-	}, {
-		key: 'handleSubmit',
-		value: function handleSubmit(event) {
+		if (this.state.value.toString() == "") {
+
+			this.setState({ value: '' });
+		} else {
 			socket.emit('client', this.state.value);
 			this.setState({ value: '' });
 		}
-	}, {
-		key: 'handleKey',
-		value: function handleKey(event) {
-			var key = event.keyCode ? event.keyCode : event.which;
-			if (key == '13') {
+	}
+	handleKey(event) {
+		let key = event.keyCode ? event.keyCode : event.which;
+		let m_value = this.state.value.toString(); //m_value='\n';因为这是一个keyup事件
+
+		if (key == '13') {
+
+			if (m_value == '\n') {
+
+				this.setState({ value: '' });
+			} else {
+
 				socket.emit('client', this.state.value);
 				this.setState({ value: '' });
 			}
 		}
-	}, {
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'send' },
-				_react2.default.createElement('textarea', { rows: '4', type: 'text', value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
-				_react2.default.createElement(
-					_button2.default,
-					{ onClick: this.handleSubmit },
-					'\u53D1\u9001\u6D88\u606F'
-				)
-			);
-		}
-	}]);
-
-	return Send;
-}(_react.Component);
-
-exports.default = Send;
+	}
+	render() {
+		return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+			'div',
+			{ className: 'send' },
+			__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('textarea', { rows: '4', type: 'text', value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
+			__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
+				__WEBPACK_IMPORTED_MODULE_1_antd_lib_button___default.a,
+				{ onClick: this.handleSubmit },
+				'\u53D1\u9001\u6D88\u606F'
+			)
+		);
+	}
+}
+/* harmony default export */ __webpack_exports__["a"] = (Send);
 
 /***/ }),
 /* 141 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_antd_dist_antd_css__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_antd_dist_antd_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_antd_dist_antd_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__css_main_css__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__css_main_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__css_main_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__chatroom_Box_js__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
 
 
-var _react = __webpack_require__(15);
 
-var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(131);
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
-__webpack_require__(132);
 
-__webpack_require__(133);
-
-var _Box = __webpack_require__(129);
-
-var _Box2 = _interopRequireDefault(_Box);
-
-var _jquery = __webpack_require__(130);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_jquery2.default.post('/getname', function (data, status) {
+__WEBPACK_IMPORTED_MODULE_5_jquery___default.a.post('/getname', function (data, status) {
 	console.log(data); //这里获取一下这个socket的用户名
 	//向服务器发送这个名字
 	socket.emit('sendname', JSON.parse(data));
 });
 //这里应该传入一个对象数组，分别由time，name，message
 
-var element = _react2.default.createElement(
+var element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 	'div',
 	null,
-	_react2.default.createElement(_Box2.default, null)
+	__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__chatroom_Box_js__["a" /* default */], null)
 );
-_reactDom2.default.render(element, document.getElementById('hello'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(element, document.getElementById('hello'));
 
 /***/ }),
 /* 142 */

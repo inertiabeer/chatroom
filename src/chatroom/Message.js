@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 const nameStyle={
-	color:'#ccc',
+	color:'#63223f',
 	fontSize:'2em',
 	marginRight:'3em',
 

@@ -26,3 +26,6 @@ serverMessage: 服务端向外发送消息。
 ### 实现css气泡
 
 利用三角形和rotate实现了css气泡
+### 修改了webpack配置
+
+利用webpack3的配置，然后修改了一下babel，对send.js中的发送空格消息进行修改，发现两个比较有趣的事情，一个是需要用state的toString()值进行判断，另一个是keyup事件中，判断state的时候，state就已经是\n了

@@ -8,29 +8,44 @@ module.exports = {
 		filename: 'js/bundle.js'
 	},
 	module: {
-		loaders: [{
-			test: /\.js$/,
-			loader: 'babel-loader',
-			exclude: path.join(__dirname + '/node_modules'),
-			include: path.join(__dirname + '/src'),
-			query: {
-				presets: ['react','es2015']
-
-			}
+		rules: [{
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				'css-loader'
+			]
 		},
 		{
-			test:/\.css$/,
-			loader:'style-loader!css-loader'
-		}
-		
-]
+			test:/\.(png|svg|jpg|gif)$/,
+			use:[
+			'file-loader'
+			]
+
+		},
+		{
+			test:/\.js$/,
+			use:[
+			'babel-loader'
+			],
+			exclude: path.join(__dirname + '/node_modules'),
+			include: path.join(__dirname + '/src')
+
+		}],
 	},
 	plugins: [
 		new htmlWP({
+			filename: 'index.html',
 			template: 'index.html',
 			minify: {
 				collapseWhitespace: false,
 				removeComments: true
+			}
+		}),
+		new webpack.LoaderOptionsPlugin({
+			options: {
+				postcss: [require('autoprefixer')({
+					browsers: ['last 5 versions']
+				})]
 			}
 		})
 

@@ -4,7 +4,7 @@ import {Button} from 'antd';
 		constructor(props) {
 		super(props);
 		this.state={
-			value:'',
+			value:"",
 			placeHolder:'在这里输入消息'
 		};
 		this.handleChange=this.handleChange.bind(this);
@@ -16,16 +16,40 @@ import {Button} from 'antd';
 	}
 	handleSubmit(event)
 	{
-		socket.emit('client',this.state.value);
-		this.setState({value:''});
+		let m_value=this.state.value;
+		console.log(m_value=='');//这里需要调用value的字符值
+  
+		if(this.state.value.toString()=="")
+		{
 
+			this.setState({value:''});
+		}
+		else
+		{
+		   socket.emit('client',this.state.value);
+		   this.setState({value:''});
+		}
 	}
 	handleKey(event){
-		var key=(event.keyCode?event.keyCode:event.which);
+		let key=(event.keyCode?event.keyCode:event.which);
+		let m_value=this.state.value.toString();//m_value='\n';因为这是一个keyup事件
+
 		if(key=='13')
 		{
-		socket.emit('client',this.state.value);
-		this.setState({value:''});
+			
+			if(m_value=='\n')
+			{
+
+                this.setState({value:''});
+			}
+			else
+			{
+				
+			  socket.emit('client',this.state.value);
+		       this.setState({value:''});
+
+			}
+
 		}
 
 	}
