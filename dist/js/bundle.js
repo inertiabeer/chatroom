@@ -11257,6 +11257,7 @@ module.exports = getIteratorFn;
 
 
 
+
 class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	constructor(props) {
 		super(props);
@@ -11274,7 +11275,7 @@ class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 	}
 	componentDidUpdate(prevProps, prevState) {
 
-		var node = document.getElementsByClassName('message_container'); //获取整个的消息框
+		var node = document.getElementsByClassName("message_container"); //获取整个的消息框
 		if (node[0].scrollHeight >= node[0].clientHeight) {
 			node[0].scrollIntoView(false);
 			node[0].scrollTop = node[0].scrollHeight;
@@ -22118,11 +22119,11 @@ class Send extends __WEBPACK_IMPORTED_MODULE_2_react__["Component"] {
 		let m_value = this.state.value;
 		console.log(m_value == ''); //这里需要调用value的字符值
 
-		if (this.state.value.toString() == "") {
-
+		if (this.state.value.toString() != "") {
+			socket.emit('client', this.state.value);
 			this.setState({ value: '' });
 		} else {
-			socket.emit('client', this.state.value);
+
 			this.setState({ value: '' });
 		}
 	}
@@ -22144,13 +22145,13 @@ class Send extends __WEBPACK_IMPORTED_MODULE_2_react__["Component"] {
 	}
 	render() {
 		return __WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
-			'div',
-			{ className: 'send' },
-			__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement('textarea', { rows: '4', type: 'text', value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
+			"div",
+			{ className: "send" },
+			__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement("textarea", { rows: "4", type: "text", value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
 			__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(
 				__WEBPACK_IMPORTED_MODULE_1_antd_lib_button___default.a,
 				{ onClick: this.handleSubmit },
-				'\u53D1\u9001\u6D88\u606F'
+				"\u53D1\u9001\u6D88\u606F"
 			)
 		);
 	}
@@ -22174,6 +22175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__chatroom_Box_js__ = __webpack_require__(129);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__chatroom_RoomList__ = __webpack_require__(293);
 
 
 
@@ -22181,19 +22183,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_5_jquery___default.a.post('/getname', function (data, status) {
-	console.log(data); //这里获取一下这个socket的用户名
-	//向服务器发送这个名字
-	socket.emit('sendname', JSON.parse(data));
+__WEBPACK_IMPORTED_MODULE_5_jquery___default.a.post("/getname", function (data, status) {
+		//向服务器发送这个名字
+		socket.emit("sendname", JSON.parse(data));
 });
 //这里应该传入一个对象数组，分别由time，name，message
 
 var element = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-	'div',
-	null,
-	__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__chatroom_Box_js__["a" /* default */], null)
+		"div",
+		null,
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__chatroom_RoomList__["a" /* default */], null),
+		__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__chatroom_Box_js__["a" /* default */], null)
 );
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(element, document.getElementById('hello'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(element, document.getElementById("hello"));
 
 /***/ }),
 /* 142 */
@@ -35366,6 +35368,95 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
+
+
+/***/ }),
+/* 293 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+class RoomList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
+    constructor(props) {
+        super(props);
+        this.handleAddRoom = this.handleAddRoom.bind(this); //添加聊天室的
+        this.handleChange = this.handleChange.bind(this); //处理聊天室名称的
+        this.handleJoin = this.handleJoin.bind(this); //这是处理加入聊天室的
+        this.handleLeave = this.handleLeave.bind(this);
+        this.state = {
+            value: "",
+            rooms: [],
+            activeroom: ""
+        };
+    }
+    handleAddRoom(event) {
+        event.preventDefault();
+        socket.emit("addroom", this.state.value);
+    }
+    handleLeave(event) {
+        if (this.state.activeroom) {
+            socket.emit("leave", this.state.activeroom);
+        }
+    }
+    handleJoin(event) {
+        event.preventDefault();
+        this.handleLeave();
+        this.setState({
+            activeroom: event.target.innerText
+        });
+        console.log(event.target.innerText);
+        socket.emit("join", event.target.innerText);
+    }
+    componentDidMount() {
+        var that = this;
+        socket.on("roomlist", function (data) {
+            let roomList = JSON.parse(data);
+            console.log(data);
+            let rooms = [];
+            roomList.forEach(function (item, index) {
+
+                rooms.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "li",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "a",
+                        { href: "", onClick: that.handleJoin },
+                        item
+                    )
+                ));
+            });
+            that.setState({
+                rooms: rooms
+            });
+        });
+    }
+    handleChange(event) {
+        event.preventDefault();
+        this.setState({
+            value: event.target.value
+        });
+    }
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "ul",
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "li",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", onChange: this.handleChange }),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "a",
+                    { href: "", onClick: this.handleAddRoom },
+                    "\u6DFB\u52A0\u65B0\u623F\u95F4"
+                )
+            ),
+            this.state.rooms
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoomList;
 
 
 /***/ })

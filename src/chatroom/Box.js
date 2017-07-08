@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Send from './Send.js';
 import Message from './Message.js';
+import {Button} from "antd";
 
 class Box extends Component
 {
@@ -28,7 +29,7 @@ class Box extends Component
 	}
 	componentDidUpdate(prevProps, prevState) {
 		
-			var node=document.getElementsByClassName('message_container');//获取整个的消息框
+			var node=document.getElementsByClassName("message_container");//获取整个的消息框
 			if(node[0].scrollHeight>=node[0].clientHeight)
 			{
 				node[0].scrollIntoView(false);
@@ -45,7 +46,7 @@ class Box extends Component
 			<div className='message_container'>{this.state.listItems}</div>
 			<Send></Send>
 				
-			</div>)
+			</div>);
 	}
 }
 export default Box;

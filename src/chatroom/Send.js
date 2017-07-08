@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button} from 'antd';
+import {Button} from "antd";
  class Send extends Component {
 		constructor(props) {
 		super(props);
@@ -18,17 +18,14 @@ import {Button} from 'antd';
 	{
 		let m_value=this.state.value;
 		console.log(m_value=='');//这里需要调用value的字符值
-  
-		if(this.state.value.toString()=="")
-		{
 
-			this.setState({value:''});
-		}
-		else
-		{
-		   socket.emit('client',this.state.value);
-		   this.setState({value:''});
-		}
+        if (this.state.value.toString() != "") {
+            socket.emit('client', this.state.value);
+            this.setState({value: ''});
+        } else {
+
+            this.setState({value: ''});
+        }
 	}
 	handleKey(event){
 		let key=(event.keyCode?event.keyCode:event.which);
