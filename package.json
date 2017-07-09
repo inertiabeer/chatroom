@@ -6,14 +6,17 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "antd": "^2.12.0",
+    "auto": "^0.1.2",
+    "autoprefixer": "^7.1.2",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
+    "css-loader": "^0.28.4",
     "debug": "~2.6.3",
-    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "express": "~4.15.2",
     "express-session": "^1.15.3",
@@ -23,15 +26,19 @@
     "moment": "^2.18.1",
     "morgan": "~1.8.1",
     "pg": "^6.4.0",
+    "prefixer": "0.0.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "serve-favicon": "~2.4.2",
     "socket.io": "^2.0.3",
+    "style-loader": "^0.18.2",
     "webpack": "^2.5.1"
   },
   "devDependencies": {
-    "babel-plugin-import": "^1.1.1"
+    "babel-plugin-import": "^1.1.1",
+    "eslint": "^4.1.1",
+    "eslint-plugin-react": "^7.1.0"
   }
 }

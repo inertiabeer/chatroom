@@ -229,7 +229,7 @@ io.on("connection",function(socket){
                 roomList[0].users = [].concat(username);
                 console.log(roomList[0].users);
             } else {
-                roomList[0].users.concat(socket.name);
+                roomList[0].users.push(socket.name);
 
             }
             //这里对users进行判断，如果存在就加入
