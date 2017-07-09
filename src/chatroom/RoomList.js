@@ -11,7 +11,7 @@ export default class RoomList extends Component
 		this.state={
 			value:"",
 			rooms:[],
-			activeroom:""
+			activeroom:"hello"
 		};
 	}
 	handleAddRoom(event)
@@ -50,7 +50,7 @@ export default class RoomList extends Component
 			roomList.forEach(function(item,index){
 
 
-				rooms.push(<li><a href="" onClick={that.handleJoin}>{item}</a></li>);
+				rooms.push(<li><a href="" onClick={that.handleJoin}>{item.value}</a></li>);
 
 
 			});
