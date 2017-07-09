@@ -235,6 +235,7 @@ io.on("connection",function(socket){
             //这里对users进行判断，如果存在就加入
             console.log("添加"+roomList[0].users);
             socket.to(socket.room).emit("userList",JSON.stringify(roomList[0].users));
+            socket.emit("userList",JSON.stringify(roomList[0].users));
 
         }
 
@@ -268,6 +269,7 @@ io.on("connection",function(socket){
 
             roomList[0].users.deleteValue(socket.name);//这里调用自定义的方法
             socket.to(socket.room).emit("userList",JSON.stringify(roomList[0].users));
+            socket.emit("userList",JSON.stringify(roomList[0].users));
             socket.leave("hello");
 
         }
@@ -277,6 +279,7 @@ io.on("connection",function(socket){
             let index=roomList.IndexOf(socket.room);
             roomList[index].users.deleteValue(socket.name);
             socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));
+            socket.emit("userList",JSON.stringify(roomList[index].users));
             socket.leave(socket.room);
         }
         socket.join(room,()=>{
@@ -288,6 +291,7 @@ io.on("connection",function(socket){
 
             roomList[index].users=(roomList[index].users?roomList[index].users:[]).concat(socket.name);
             console.log(roomList[index].users);
+            socket.emit("userList",JSON.stringify(roomList[index].users));
             socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));//这里设定是加入新房间会自动显示用户数量，但是我觉得这样不好
             // let rooms = Object.keys(socket.rooms);
             // console.log(rooms); // [ <socket.id>, 'room 237' ]
