@@ -50,7 +50,7 @@ app.get("/",function(req,res)
 
 	
 });
-app.post("/getname",function(req,res)
+app.get("/getname",function(req,res)
 {
 	var user=req.session.user;
       

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Button} from "antd";
  class Send extends Component {
 		constructor(props) {
 		super(props);
@@ -55,7 +54,7 @@ import {Button} from "antd";
 			<div className='send'>
 			<textarea rows="4" type="text" value={this.state.value} onKeyUp={this.handleKey} onChange={this.handleChange} placeholder={this.state.placeHolder}/>
 
-			<Button onClick={this.handleSubmit}>发送消息</Button>
+			<button onClick={this.handleSubmit}>发送消息</button>
 			</div>
 		);
 	}
