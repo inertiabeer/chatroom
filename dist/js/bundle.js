@@ -9768,43 +9768,70 @@ module.exports = getIteratorFn;
 
 
 
-
 class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
-	constructor(props) {
-		super(props);
-		this.state = {
-			listItems: []
-		};
-	}
-	componentDidMount() {
-		var that = this;
-		socket.on("serverMessage", function (content) {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listItems: [],
+            roomName: "hello",
+            userList: []
 
-			let message = JSON.parse(content);
-			that.setState({ listItems: that.state.listItems.concat([__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Message_js__["a" /* default */], { time: message.time, name: message.name, message: message.message, username: that.props.username })]) });
-		});
-	}
-	componentDidUpdate(prevProps, prevState) {
+        };
+    }
+    componentDidMount() {
+        var that = this;
+        socket.on("serverMessage", function (content) {
 
-		var node = document.getElementsByClassName("message_container"); //获取整个的消息框
-		if (node[0].scrollHeight >= node[0].clientHeight) {
-			node[0].scrollIntoView(false);
-			node[0].scrollTop = node[0].scrollHeight;
-		}
-	}
-	componentWillUpdate(nextProps, nextState) {}
-	render() {
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"div",
-			{ className: "message_box" },
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"div",
-				{ className: "message_container" },
-				this.state.listItems
-			),
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Send_js__["a" /* default */], null)
-		);
-	}
+            let message = JSON.parse(content);
+            that.setState({ listItems: that.state.listItems.concat([__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Message_js__["a" /* default */], { time: message.time, name: message.name, message: message.message, username: that.props.username })]) });
+        });
+        socket.on("roomName", function (roomName) {
+            that.setState({ roomName: roomName });
+        });
+        socket.on("userList", function (userList) {
+            var li_arr = [];
+            var list = JSON.parse(userList);
+            list.forEach(function (item) {
+                li_arr.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "li",
+                    null,
+                    item
+                ));
+            });
+            that.setState({ userList: li_arr });
+        });
+    }
+    componentDidUpdate(prevProps, prevState) {
+
+        var node = document.getElementsByClassName("message_container"); //获取整个的消息框
+        if (node[0].scrollHeight >= node[0].clientHeight) {
+            node[0].scrollIntoView(false);
+            node[0].scrollTop = node[0].scrollHeight;
+        }
+    }
+    componentWillUpdate(nextProps, nextState) {}
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "message_box" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "h3",
+                null,
+                this.state.roomName
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "ul",
+                null,
+                this.state.userList
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "message_container" },
+                this.state.listItems
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Send_js__["a" /* default */], null)
+        );
+    }
 }
 /* harmony default export */ __webpack_exports__["a"] = (Box);
 

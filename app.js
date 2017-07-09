@@ -221,19 +221,22 @@ io.on("connection",function(socket){
     });
     socket.on("sendname",function(username){
         socket.name=username;
-        socket.join(roomList[0]);//这里是有一个默认的聊天室的
+        if(!socket.room)
+        {
+            socket.join(roomList[0]);//这里是有一个默认的聊天室的
+            socket.room="hello";
+            if (!roomList[0].users) {
+                roomList[0].users = [].concat(username);
+                console.log(roomList[0].users);
+            } else {
+                roomList[0].users.concat(socket.name);
 
-        socket.roomid=0;
-        socket.room="hello";
-        if (!roomList[0].users) {
-            roomList[0].users = [].concat(username);
-            console.log(roomList[0].users);
-        } else {
-            roomList[0].users.concat(socket.name);
-
+            }
+            //这里对users进行判断，如果存在就加入
+            console.log("添加"+roomList[0].users);
+            socket.emit("userList",JSON.stringify(roomList[0].users));
         }
-        //这里对users进行判断，如果存在就加入
-        console.log("添加"+roomList[0].users);
+
 
     });
     socket.on("room",function(room){
@@ -263,15 +266,26 @@ io.on("connection",function(socket){
         {
             socket.leave("hello");
             roomList[0].users.deleteValue(socket.name);//这里调用自定义的方法
+            socket.emit("userList",JSON.stringify(roomList[0].users));
 
+        }
+        else
+        {
+            socket.leave(socket.room);
+            let index=roomList.IndexOf(socket.room);
+            roomList[index].users.deleteValue(socket.name);
+            socket.emit("userList",JSON.stringify(roomList[index].users));
         }
         socket.join(room,()=>{
             socket.room=room;//这里只是为了方便自己调用
             let index=roomList.IndexOf(room);
             console.log(index);
+            socket.emit("roomName",room);
+
 
             roomList[index].users=(roomList[index].users?roomList[index].users:[]).concat(socket.name);
             console.log(roomList[index].users);
+            socket.emit("userList",JSON.stringify(roomList[index].users));//这里设定是加入新房间会自动显示用户数量，但是我觉得这样不好
             // let rooms = Object.keys(socket.rooms);
             // console.log(rooms); // [ <socket.id>, 'room 237' ]
 
