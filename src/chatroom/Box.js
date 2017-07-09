@@ -18,7 +18,8 @@ class Box extends Component
 		socket.on("serverMessage",function(content){
 
 	    let message=JSON.parse(content);
-	    that.setState({listItems:that.state.listItems.concat([<Message time={message.time} name={message.name} message={message.message}></Message>])});
+	    that.setState({listItems:that.state.listItems.concat([<Message time={message.time} name={message.name} message={message.message} username={that.props.username}>
+	    	</Message>])});
 
 
 
