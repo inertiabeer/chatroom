@@ -6,15 +6,16 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const session = require("express-session");
-const pg = require("pg");
-const Pool = pg.Pool;
-const config = {
-    host: "47.94.226.150",
-    user: "postgres",
-    password: "986619667",
-    database: "chatroom",
-};
-var pool=new Pool(config);
+const log=require('./routes/log.js');
+// const pg = require("pg");
+// const Pool = pg.Pool;
+// const config = {
+//     host: "47.94.226.150",
+//     user: "postgres",
+//     password: "986619667",
+//     database: "chatroom",
+// };
+// var pool=new Pool(config);
 
 var app = express();
 var server=require("http").createServer(app);
@@ -36,7 +37,8 @@ app.use(session({
     saveUninitialized: true
 }));//这里使用session
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/js",express.static(path.join(__dirname,"dist/js")));
+app.use("/js",express.static(path.join(__dirname,"dist/js")));//这里添加了一个虚拟路径
+app.use("/",log);
 app.get("/",function(req,res)
 {
     if(req.session.user)
@@ -61,71 +63,75 @@ app.get("/getname",function(req,res)
 app.get("/user",function(req,res){
     res.sendFile(path.resolve(__dirname+"/views/login.html"));
 });
-app.post("/login", function(req, res) {
-    console.log(req.body);
-    var sql="SELECT userpassword FROM public.user WHERE username='"+req.body.username+"'";
-    console.log(sql);
-    pool.query(sql,function(err,result){
-        if(err)
-        {
-            console.log(err);
-        }
-        console.log(result.rows[0].userpassword);
-        if(result.rows[0].userpassword==req.body.password)
-        {
-            var user={
-                username:req.body.username,
-                password:req.body.password
-            };
-            req.session.user=user;
-            res.send("y");
+// app.post('/login', function(req, res) {
+//     console.log(req.body);
+//     var sql = "SELECT userpassword FROM public.user WHERE username='" + req.body.username + "'";
+//     console.log(sql);
+//     pool.query(sql, function(err, result) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         if(result.rows[0]===undefined)
+//         {
+//             res.send('不存在此用户名')
+//         }
+//         else if(result.rows[0].userpassword == req.body.password) {
+//             var user = {
+//                 username: req.body.username,
+//                 password: req.body.password
+//             }
+//             req.session.user = user;
+//             res.send('y');
 
 
 
-        }
+//         } else {
+//             res.send('用户名与密码不匹配');
+//         }
 
 
-    });
+//     })
 
-});
-app.post("/logout",function(req,res){
-    req.session.destroy(function(err)
-    {if(err)
-    {console.log(err);}
-    
-    });
+// });
 
-   
-    res.send("y");
-});
-app.post("/logup", function(req, res) {
-    console.log(req.body);
-    var sql = "INSERT INTO public.user (username,userpassword) VALUES ('"+req.body.username+"', '"+ req.body.password + "')";
-    console.log(sql);
-    var user_table="CREATE TABLE user_"+req.body.username+"(action VARCHAR, time VARCHAR)";
-    console.log(user_table);
-    pool.query(user_table,function(err,result){
-        if(err)
-        {
-            console.log(err);
-        }
+// app.post('/logout', function(req, res) {
+//     req.session.destroy(function(err) {
+//         if (err) {
+//             console.log(err);
+//         }
+//         console.log(1);
+//     })
 
-
-    });
+//     console.log(2);
+//     res.send('y');
+// })
+// app.post('/logup', function(req, res) {
+//     console.log(req.body);
+//     var sql = "INSERT INTO public.user (username,userpassword) VALUES ('" + req.body.username + "', '" + req.body.password + "')";
+//     console.log(sql);
+//     var user_table = "CREATE TABLE user_" + req.body.username + "(action VARCHAR, time VARCHAR)";
+//     console.log(user_table);
+//     pool.query(user_table, function(err, result) {
+//         if (err) {
+//             console.log(err);
+//         }
 
 
-    pool.query(sql, function(err, result) {
-        if (err) {
-            console.log(err);
-            res.send("n");
-        }
-        else{
+//     });
 
-            console.log(result);
-            res.send("y");
-        }
-    });
-});
+
+//     pool.query(sql, function(err, result) {
+//         if (err) {
+//             console.log(err);
+//             res.send('error');
+//         } else {
+
+//             console.log(result);
+//             res.send('成功插入');
+//         }
+//     })
+// });
+
 
 
 
