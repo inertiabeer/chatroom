@@ -63,74 +63,6 @@ app.get("/getname",function(req,res)
 app.get("/user",function(req,res){
     res.sendFile(path.resolve(__dirname+"/views/login.html"));
 });
-// app.post('/login', function(req, res) {
-//     console.log(req.body);
-//     var sql = "SELECT userpassword FROM public.user WHERE username='" + req.body.username + "'";
-//     console.log(sql);
-//     pool.query(sql, function(err, result) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         if(result.rows[0]===undefined)
-//         {
-//             res.send('不存在此用户名')
-//         }
-//         else if(result.rows[0].userpassword == req.body.password) {
-//             var user = {
-//                 username: req.body.username,
-//                 password: req.body.password
-//             }
-//             req.session.user = user;
-//             res.send('y');
-
-
-
-//         } else {
-//             res.send('用户名与密码不匹配');
-//         }
-
-
-//     })
-
-// });
-
-// app.post('/logout', function(req, res) {
-//     req.session.destroy(function(err) {
-//         if (err) {
-//             console.log(err);
-//         }
-//         console.log(1);
-//     })
-
-//     console.log(2);
-//     res.send('y');
-// })
-// app.post('/logup', function(req, res) {
-//     console.log(req.body);
-//     var sql = "INSERT INTO public.user (username,userpassword) VALUES ('" + req.body.username + "', '" + req.body.password + "')";
-//     console.log(sql);
-//     var user_table = "CREATE TABLE user_" + req.body.username + "(action VARCHAR, time VARCHAR)";
-//     console.log(user_table);
-//     pool.query(user_table, function(err, result) {
-//         if (err) {
-//             console.log(err);
-//         }
-
-
-//     });
-
-
-//     pool.query(sql, function(err, result) {
-//         if (err) {
-//             console.log(err);
-//             res.send('error');
-//         } else {
-
-//             console.log(result);
-//             res.send('成功插入');
-//         }
-//     })
-// });
 
 
 
@@ -191,6 +123,7 @@ let initRoom={
         return this.value;
     },
     value:"hello",
+    datas:[]
 
 };
 let roomList=[initRoom];//这里放这全部的聊天室
@@ -207,7 +140,7 @@ io.on("connection",function(socket){
 
         });
 
-    });
+    });//加载的时候先发送roomlist和初始化的hello
     socket.on("client",function(content){
         var message={
             time:moment().format("YYYY-MM-DD HH:mm:ss"),
@@ -222,6 +155,9 @@ io.on("connection",function(socket){
         }
         socket.emit("serverMessage",JSON.stringify(message)); //发送回去
         socket.to(socket.room).emit("serverMessage",JSON.stringify(message));  //发送给其他客户端
+        let index=roomList.IndexOf(socket.room);
+        roomList[index].datas.push(message);
+        console.log(roomList[index].datas);
 
 
     });
@@ -261,6 +197,7 @@ io.on("connection",function(socket){
                 return this.value;
             },
             value:roomname,
+            datas:[]
 
         };
         roomList.push(initRoom);
@@ -301,8 +238,18 @@ io.on("connection",function(socket){
             socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));//这里设定是加入新房间会自动显示用户数量，但是我觉得这样不好
             // let rooms = Object.keys(socket.rooms);
             // console.log(rooms); // [ <socket.id>, 'room 237' ]
+            console.log(roomList[index].datas+" flag");
+            roomList[index].datas.forEach(function(item,index){
+                socket.emit("serverMessage",JSON.stringify(item)); //发送回去
+
+
+            });
 
         });
+
+    });
+    socket.on("getRoomMessage",function(roomName){
+        let index=roomList.IndexOf(roomName);
 
     });
     socket.on("leave",function(oldroom){
@@ -320,10 +267,14 @@ io.on("connection",function(socket){
         console.log(reason);
 
         let index=roomList.IndexOf(socket.room);
-        roomList[index].users.deleteValue(socket.name);
-        socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));
-        socket.emit("userList",JSON.stringify(roomList[index].users));
-        socket.leave(socket.room);
+        if(roomList[index])
+        {
+            roomList[index].users.deleteValue(socket.name);
+            socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));
+            socket.emit("userList",JSON.stringify(roomList[index].users));
+            socket.leave(socket.room);
+        }
+
     });
 
 

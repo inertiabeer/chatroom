@@ -19,10 +19,11 @@ const message={
     position:"absolute",
     right:"20%",
     margin:'0',
-    width:'80%'
+    width:'80%',
+    height:"100%"
 }
 const message_container={
-    height:"500px",
+    height:"60%",
     overflowY:"scroll",
     overflowX:"hidden",
     padding:"1rem"

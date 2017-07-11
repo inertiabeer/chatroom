@@ -3,7 +3,8 @@ const roomList={
     position:"absolute",
     left:"0",
     top:"0",
-    width:"25%"
+    width:"25%",
+    height:"100%"
 };
 export default class RoomList extends Component
 {
