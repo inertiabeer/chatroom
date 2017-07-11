@@ -9651,6 +9651,7 @@ class RoomList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         this.handleChange = this.handleChange.bind(this); //处理聊天室名称的
         this.handleJoin = this.handleJoin.bind(this); //这是处理加入聊天室的
         this.handleLeave = this.handleLeave.bind(this);
+        this.handleKey = this.handleKey.bind(this); //这里处理enter的
         this.state = {
             value: "",
             rooms: [],
@@ -9660,6 +9661,26 @@ class RoomList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     handleAddRoom(event) {
         event.preventDefault();
         socket.emit("addroom", this.state.value);
+        this.setState({
+            value: ""
+        });
+    }
+    handleKey(event) {
+        let key = event.keyCode ? event.keyCode : event.which;
+        let m_value = this.state.value.toString(); //m_value='\n';因为这是一个keyup事件
+
+        if (key == '13') {
+
+            if (m_value == '\n') {
+
+                this.setState({ value: "" });
+            } else {
+
+                socket.emit("addroom", this.state.value);
+                console.log('fasong');
+                this.setState({ value: "" });
+            }
+        }
     }
     handleLeave(event) {
         if (this.state.activeroom) {
@@ -9716,7 +9737,7 @@ class RoomList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "li",
                     null,
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", onChange: this.handleChange }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", onChange: this.handleChange, onKeyUp: this.handleKey }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         "a",
                         { href: "", onClick: this.handleAddRoom },

@@ -14,6 +14,7 @@ export default class RoomList extends Component
         this.handleChange=this.handleChange.bind(this);//处理聊天室名称的
         this.handleJoin=this.handleJoin.bind(this);//这是处理加入聊天室的
         this.handleLeave=this.handleLeave.bind(this);
+        this.handleKey=this.handleKey.bind(this);//这里处理enter的
         this.state={
             value:"",
             rooms:[],
@@ -24,7 +25,34 @@ export default class RoomList extends Component
 	{
         event.preventDefault();
         socket.emit("addroom",this.state.value);
+        this.setState({
+            value:""
+        });
 
+
+    }
+    handleKey(event){
+        let key=(event.keyCode?event.keyCode:event.which);
+        let m_value=this.state.value.toString();//m_value='\n';因为这是一个keyup事件
+
+        if(key=='13')
+        {
+
+            if(m_value=='\n')
+            {
+
+                this.setState({value:""});
+            }
+            else
+            {
+
+                socket.emit("addroom",this.state.value);
+                console.log('fasong');
+                this.setState({value:""});
+
+            }
+
+        }
 
     }
     handleLeave(event)
@@ -78,7 +106,7 @@ export default class RoomList extends Component
         return (
 			<div style={roomList}>
 			<ul>
-				<li><input type="text" onChange={this.handleChange}/><a href="" onClick={this.handleAddRoom}>添加新房间</a></li>
+				<li><input type="text" onChange={this.handleChange} onKeyUp={this.handleKey}/><a href="" onClick={this.handleAddRoom}>添加新房间</a></li>
 				{this.state.rooms}
 			</ul>
 			</div>
