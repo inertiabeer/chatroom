@@ -35,7 +35,7 @@ const triangle=
 	top:'0',
 	left:'-0.4rem',
 	transform: 'rotate(30deg)',
-	zIndex: '-1'
+	zIndex: '1'
 }
 const rightTriangle={
 	width:'0',
@@ -46,7 +46,7 @@ const rightTriangle={
 	top:'0',
 	right:'-0.4rem',
 	transform: 'rotate(-30deg)',
-	zIndex: '-1'
+	zIndex: '1'
 }
 const rightContainer={
 	backgroundColor:'#fefcd4',

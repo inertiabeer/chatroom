@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const session = require("express-session");
-const log=require('./routes/log.js');
+const log=require("./routes/log.js");
 // const pg = require("pg");
 // const Pool = pg.Pool;
 // const config = {
@@ -315,6 +315,15 @@ io.on("connection",function(socket){
     });
     socket.on("getUser",function(roomName){
         socket.emit();
+    });
+    socket.on("disconnect",(reason)=>{
+        console.log(reason);
+
+        let index=roomList.IndexOf(socket.room);
+        roomList[index].users.deleteValue(socket.name);
+        socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));
+        socket.emit("userList",JSON.stringify(roomList[index].users));
+        socket.leave(socket.room);
     });
 
 

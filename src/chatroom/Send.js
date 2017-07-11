@@ -52,7 +52,7 @@ import React, { Component } from 'react';
 	render() {
 		return (
 			<div className='send'>
-			<textarea rows="4" type="text" value={this.state.value} onKeyUp={this.handleKey} onChange={this.handleChange} placeholder={this.state.placeHolder}/>
+			<textarea rows="6" type="text" value={this.state.value} onKeyUp={this.handleKey} onChange={this.handleChange} placeholder={this.state.placeHolder}/>
 
 			<button onClick={this.handleSubmit}>发送消息</button>
 			</div>

@@ -9527,6 +9527,29 @@ module.exports = getIteratorFn;
 
 
 
+const box = {
+    position: "absolute",
+    left: "25%",
+    width: "75%"
+};
+const userList = {
+    position: "absolute",
+    right: "0",
+    width: "20%",
+    margin: '0'
+};
+const message = {
+    position: "absolute",
+    right: "20%",
+    margin: '0',
+    width: '80%'
+};
+const message_container = {
+    height: "500px",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    padding: "1rem"
+};
 class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     constructor(props) {
         super(props);
@@ -9537,6 +9560,7 @@ class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
         };
     }
+
     componentDidMount() {
         var that = this;
         socket.on("serverMessage", function (content) {
@@ -9546,11 +9570,14 @@ class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
         });
         socket.on("roomName", function (roomName) {
-            that.setState({ roomName: roomName }); //设置房间名
+            if (that.state.roomName != roomName) {}
+            that.setState({ roomName: roomName,
+                listItems: [] }); //设置房间名
+
         });
         socket.on("userList", function (userList) {
-            var li_arr = [];
-            var list = JSON.parse(userList);
+            let li_arr = [];
+            let list = JSON.parse(userList);
             list.forEach(function (item) {
                 li_arr.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "li",
@@ -9573,23 +9600,31 @@ class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
-            { className: "message_box" },
+            { className: "message_box", style: box },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "h3",
-                null,
-                this.state.roomName
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "ul",
-                null,
-                this.state.userList
+                "div",
+                { style: userList },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "h3",
+                    null,
+                    this.state.roomName
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "ul",
+                    null,
+                    this.state.userList
+                )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
-                { className: "message_container" },
-                this.state.listItems
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Send_js__["a" /* default */], null)
+                { style: message },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { style: message_container, className: "message_container" },
+                    this.state.listItems
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Send_js__["a" /* default */], null)
+            )
         );
     }
 }
@@ -9603,84 +9638,95 @@ class Box extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 
+const roomList = {
+    position: "absolute",
+    left: "0",
+    top: "0",
+    width: "25%"
+};
 class RoomList extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
-	constructor(props) {
-		super(props);
-		this.handleAddRoom = this.handleAddRoom.bind(this); //添加聊天室的
-		this.handleChange = this.handleChange.bind(this); //处理聊天室名称的
-		this.handleJoin = this.handleJoin.bind(this); //这是处理加入聊天室的
-		this.handleLeave = this.handleLeave.bind(this);
-		this.state = {
-			value: "",
-			rooms: [],
-			activeroom: "hello"
-		};
-	}
-	handleAddRoom(event) {
-		event.preventDefault();
-		socket.emit("addroom", this.state.value);
-	}
-	handleLeave(event) {
-		if (this.state.activeroom) {
-			socket.emit("leave", this.state.activeroom);
-		}
-	}
-	handleJoin(event) {
-		event.preventDefault();
-		this.handleLeave();
-		this.setState({
-			activeroom: event.target.innerText
-		});
-		console.log(event.target.innerText);
-		socket.emit("join", event.target.innerText);
-	}
-	componentDidMount() {
-		var that = this;
-		socket.emit("load");
-		socket.on("roomlist", function (data) {
-			let roomList = JSON.parse(data);
-			console.log(data);
-			let rooms = [];
-			roomList.forEach(function (item, index) {
+    constructor(props) {
+        super(props);
+        this.handleAddRoom = this.handleAddRoom.bind(this); //添加聊天室的
+        this.handleChange = this.handleChange.bind(this); //处理聊天室名称的
+        this.handleJoin = this.handleJoin.bind(this); //这是处理加入聊天室的
+        this.handleLeave = this.handleLeave.bind(this);
+        this.state = {
+            value: "",
+            rooms: [],
+            activeroom: "hello"
+        };
+    }
+    handleAddRoom(event) {
+        event.preventDefault();
+        socket.emit("addroom", this.state.value);
+    }
+    handleLeave(event) {
+        if (this.state.activeroom) {
+            socket.emit("leave", this.state.activeroom);
+        }
+    }
+    handleJoin(event) {
+        event.preventDefault();
+        this.handleLeave();
+        this.setState({
+            activeroom: event.target.innerText
+        });
+        console.log(event.target.innerText);
+        socket.emit("join", event.target.innerText);
+    }
+    componentDidMount() {
+        var that = this;
+        socket.emit("load");
+        socket.on("roomlist", function (data) {
+            let roomList = JSON.parse(data);
+            console.log(data);
+            let rooms = [];
+            roomList.forEach(function (item, index) {
 
-				rooms.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"li",
-					null,
-					__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-						"a",
-						{ href: "", onClick: that.handleJoin },
-						item.value
-					)
-				));
-			});
-			that.setState({
-				rooms: rooms
-			});
-		});
-	}
-	handleChange(event) {
-		event.preventDefault();
-		this.setState({
-			value: event.target.value
-		});
-	}
-	render() {
-		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-			"ul",
-			null,
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-				"li",
-				null,
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", onChange: this.handleChange }),
-				__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-					"a",
-					{ href: "", onClick: this.handleAddRoom },
-					"\u6DFB\u52A0\u65B0\u623F\u95F4"
-				)
-			),
-			this.state.rooms
-		);
-	}
+                rooms.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "li",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "a",
+                        { href: "", onClick: that.handleJoin },
+                        item.value
+                    )
+                ));
+            });
+            that.setState({
+                rooms: rooms
+            });
+        });
+    }
+    handleChange(event) {
+        event.preventDefault();
+        this.setState({
+            value: event.target.value
+        });
+    }
+
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { style: roomList },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "ul",
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "li",
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", onChange: this.handleChange }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "a",
+                        { href: "", onClick: this.handleAddRoom },
+                        "\u6DFB\u52A0\u65B0\u623F\u95F4"
+                    )
+                ),
+                this.state.rooms
+            )
+        );
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = RoomList;
 
@@ -9765,7 +9811,7 @@ const triangle = {
 	top: '0',
 	left: '-0.4rem',
 	transform: 'rotate(30deg)',
-	zIndex: '-1'
+	zIndex: '1'
 };
 const rightTriangle = {
 	width: '0',
@@ -9776,7 +9822,7 @@ const rightTriangle = {
 	top: '0',
 	right: '-0.4rem',
 	transform: 'rotate(-30deg)',
-	zIndex: '-1'
+	zIndex: '1'
 };
 const rightContainer = {
 	backgroundColor: '#fefcd4',
@@ -9936,7 +9982,7 @@ class Send extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 		return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 			'div',
 			{ className: 'send' },
-			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '4', type: 'text', value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
+			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { rows: '6', type: 'text', value: this.state.value, onKeyUp: this.handleKey, onChange: this.handleChange, placeholder: this.state.placeHolder }),
 			__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 				'button',
 				{ onClick: this.handleSubmit },
@@ -9998,7 +10044,7 @@ exports = module.exports = __webpack_require__(89)(undefined);
 
 
 // module
-exports.push([module.i, ".row\n{\n\tbackground-color: #ccc;\n\n}\n.col\n{\n\tbackground-color: red;\n}\n.box\n{\n\tbackground-color: #00a0e9;\n\tpadding: 5px 0;\n\ttext-align: center;\n}\n\n.message_box\n{\n\tmargin-left: 30%;\n\twidth: 70%;\n\theight: 650px;\n\ttext-align: left;\n}\n.message_box>.message_container\n{\n\twidth: 100%;\n\theight: 500px;\n\toverflow: scroll;\n}\n.send\n{\n\twidth: 100%;\n\tfont-size: 2em;\n\tpadding: 0 5px 0 0;\n\tmargin-right: 15px;\n}\n.send>input\n{\n\tdisplay: block;\n\tfont-size: 2em;\n\n\n\twidth:calc(100% - 2px);\n\n}\ntextarea\n{\n\twidth: calc(100% - 2px);\n\n}", ""]);
+exports.push([module.i, ".row\n{\n\tbackground-color: #ccc;\n\n}\nul\n{\n\tlist-style: none;\n\n}\na{\n\ttext-decoration: none;\n}\n.col\n{\n\tbackground-color: red;\n}\n.box\n{\n\tbackground-color: #00a0e9;\n\tpadding: 5px 0;\n\ttext-align: center;\n}\n\n.message_box\n{\n\theight: 650px;\n\ttext-align: left;\n}\n.send\n{\n\twidth: 100%;\n\tfont-size: 2em;\n\tpadding: 0 5px 0 0;\n}\n.send>input\n{\n\tdisplay: block;\n\tfont-size: 2em;\n\n\n\twidth:calc(100% - 2px);\n\n}\ntextarea\n{\n\tmargin:0;\n\n\twidth: calc(100% - 2px);\n\tborder: 0px;\n\n}\nh1,h2,h3,h4\n{\n\ttext-align: center;\n}", ""]);
 
 // exports
 
