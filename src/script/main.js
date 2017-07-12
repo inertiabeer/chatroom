@@ -14,7 +14,7 @@ fetch("/getname",{
     socket.emit("sendname",data);
     username=data;
     var element=(
-		<div>
+		<div className="root">
         <RoomList/>
 		<Box username={username}/>
         </div>);

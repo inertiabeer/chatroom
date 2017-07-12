@@ -2,18 +2,22 @@
 import React,{Component} from "react";
 import Send from "./Send.js";
 import Message from "./Message.js";
+import { Menu, Icon } from 'antd';
 
 
 const box={
     position:"absolute",
     left:"25%",
-    width:"75%"
+    width:"75%",
+    height:"100%"
 };
 const userList={
     position:"absolute",
     right:"0",
-    width:"20%",
-    margin:'0'
+    margin:'0',
+    width:'20%',
+    height:"100%",
+    overflow:"scroll",
 }
 const message={
     position:"absolute",
@@ -23,7 +27,7 @@ const message={
     height:"100%"
 }
 const message_container={
-    height:"60%",
+    height:"80%",
     overflowY:"scroll",
     overflowX:"hidden",
     padding:"1rem"
@@ -67,8 +71,8 @@ class Box extends Component
         socket.on("userList",function(userList){
         	let li_arr=[];
         	let list=JSON.parse(userList);
-        	list.forEach(function(item){
-            li_arr.push(<li>{item}</li>);
+        	list.forEach(function(item,index){
+            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span>{item}</span></Menu.Item>);
         });
         	that.setState({userList:li_arr});
         });
@@ -92,8 +96,17 @@ class Box extends Component
         return (
             <div className='message_box' style={box}>
                 <div style={userList}>
-                    <h3>{this.state.roomName}</h3>
-                    <ul>{this.state.userList}</ul>
+                    <h2>{this.state.roomName}</h2>
+                    <Menu
+                        onClick={this.handleClick}
+                        style={{ width: 240 }}
+                        defaultSelectedKeys={['0']}
+                        defaultOpenKeys={['sub1']}
+                        mode="inline"
+                    >
+                        {this.state.userList}
+                    </Menu>
+
                 </div>
                 <div style={message}>
                 <div style={message_container} className="message_container">{this.state.listItems}</div>

@@ -1,3 +1,12 @@
+#hello
+{
+	height: 100%;
+}
+.root
+{
+	height:100%;
+
+}
 .row
 {
 	background-color: #ccc;
@@ -8,6 +17,10 @@ ul
 	list-style: none;
 
 }
+input
+{
+	padding: 0;
+}
 a{
 	text-decoration: none;
 }
@@ -17,7 +30,7 @@ a{
 }
 .box
 {
-	background-color: #00a0e9;
+	background-color: #fff;
 	padding: 5px 0;
 	text-align: center;
 }
@@ -32,6 +45,7 @@ a{
 	width: 100%;
 	font-size: 2em;
 	padding: 0 5px 0 0;
+	height:20%;
 }
 .send>input
 {
@@ -47,7 +61,8 @@ textarea
 	margin:0;
 
 	width: calc(100% - 2px);
-	border: 0px;
+	border: 1px solid #343940;
+	border-radius: 5px;
 
 }
 h1,h2,h3,h4

@@ -207,7 +207,7 @@ io.on("connection",function(socket){
 
     });
     socket.on("join",function(room){
-        if(socket.room="hello")
+        if(socket.room=="hello")
         {
 
             roomList[0].users.deleteValue(socket.name);//这里调用自定义的方法
@@ -220,15 +220,16 @@ io.on("connection",function(socket){
         {
 
             let index=roomList.IndexOf(socket.room);
-            roomList[index].users.deleteValue(socket.name);
-            socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));
-            socket.emit("userList",JSON.stringify(roomList[index].users));
+
+            roomList[index].users.deleteValue(socket.name);//先删除自己的值
+            console.log(roomList[index].users+"这是user");
+            socket.to(socket.room).emit("userList",JSON.stringify(roomList[index].users));//然后发送给前端
+            // socket.emit("userList",JSON.stringify(roomList[index].users));
             socket.leave(socket.room);
         }
         socket.join(room,()=>{
             socket.room=room;//这里只是为了方便自己调用
             let index=roomList.IndexOf(room);
-            console.log(index);
             socket.emit("roomName",room);
 
 
