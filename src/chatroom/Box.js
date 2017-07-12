@@ -7,8 +7,8 @@ import { Menu, Icon } from 'antd';
 
 const box={
     position:"absolute",
-    left:"25%",
-    width:"75%",
+    left:"20%",
+    width:"80%",
     height:"100%"
 };
 const userList={
@@ -17,7 +17,8 @@ const userList={
     margin:'0',
     width:'20%',
     height:"100%",
-    overflow:"scroll",
+    overflowY:"scroll",
+    overflowX:"hidden"
 }
 const message={
     position:"absolute",
@@ -72,7 +73,7 @@ class Box extends Component
         	let li_arr=[];
         	let list=JSON.parse(userList);
         	list.forEach(function(item,index){
-            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span>{item}</span></Menu.Item>);
+            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span><a href="">{item}</a></span></Menu.Item>);
         });
         	that.setState({userList:li_arr});
         });
@@ -96,7 +97,7 @@ class Box extends Component
         return (
             <div className='message_box' style={box}>
                 <div style={userList}>
-                    <h2>{this.state.roomName}</h2>
+                    <h1>{this.state.roomName}</h1>
                     <Menu
                         onClick={this.handleClick}
                         style={{ width: 240 }}

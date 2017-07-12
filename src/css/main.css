@@ -7,6 +7,17 @@
 	height:100%;
 
 }
+#hello ul>li
+{
+	font-size: 1.5rem;
+}
+a {
+	margin-left:2rem;
+}
+#hello a:hover
+{
+	color: #f5292a;
+}
 .row
 {
 	background-color: #ccc;
@@ -39,7 +50,12 @@ a{
 {
 	height: 650px;
 	text-align: left;
+
 }
+.message_container
+{
+}
+
 .send
 {
 	width: 100%;
@@ -47,21 +63,14 @@ a{
 	padding: 0 5px 0 0;
 	height:20%;
 }
-.send>input
-{
-	display: block;
-	font-size: 2em;
 
-
-	width:calc(100% - 2px);
-
-}
 textarea
 {
 	margin:0;
+	margin-top: 5px;
 
 	width: calc(100% - 2px);
-	border: 1px solid #343940;
+	border: 1px solid #108ee9;
 	border-radius: 5px;
 
 }

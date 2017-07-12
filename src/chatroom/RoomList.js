@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import { Menu, Icon, Switch } from 'antd';
+import { Menu, Icon, notification} from 'antd';
 import { Input } from 'antd';
 
 
@@ -9,7 +9,7 @@ const roomList={
     position:"absolute",
     left:"0",
     top:"0",
-    width:"25%",
+    width:"20%",
     height:"100%",
     overflowY:"scroll"
 };
@@ -41,7 +41,11 @@ export default class RoomList extends Component
         event.preventDefault();
         if(this.state.value=="")
         {
-            alert('房间名不能为空');
+            // alert('房间名不能为空');
+            notification["error"]({
+                message: 'Error',
+                description: "房间名不能为空"
+            });
         }
         else{
             socket.emit("addroom",this.state.value);
@@ -71,12 +75,21 @@ export default class RoomList extends Component
 
                 if(this.state.value=="")
                 {
-                    alert('房间名不能为空');
+                    notification["error"]({
+                        message: 'Error',
+                        description: "房间名不能为空",
+                        duration: 2
+
+                    });
                 }
                 else{
                     if(this.state.roomList.indexOf(this.state.value)>-1)
                     {
-                        alert('房间名已经存在');
+                        notification["error"]({
+                            message: 'Error',
+                            description: "房间已经存在",
+                            duration: 2
+                        });
                         this.setState({value:""});
                     }
                     else {
