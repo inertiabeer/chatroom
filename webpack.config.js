@@ -1,6 +1,7 @@
-var path = require('path');
-var htmlWP = require('html-webpack-plugin');
-var webpack = require('webpack');
+const path = require('path');
+const htmlWP = require('html-webpack-plugin');
+const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
 	entry: './src/script/main.js',
 	output: {
@@ -47,7 +48,12 @@ module.exports = {
 					browsers: ['last 5 versions']
 				})]
 			}
-		})
+		}),
+        new UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        })
 
 	]
 }

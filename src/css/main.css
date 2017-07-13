@@ -12,7 +12,7 @@
 	font-size: 1.5rem;
 }
 a {
-	margin-left:2rem;
+	margin-left:1rem;
 }
 #hello a:hover
 {
@@ -68,7 +68,7 @@ textarea
 {
 	margin:0;
 	margin-top: 5px;
-
+	resize: none;
 	width: calc(100% - 2px);
 	border: 1px solid #108ee9;
 	border-radius: 5px;

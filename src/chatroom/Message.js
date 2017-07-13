@@ -1,8 +1,12 @@
 import React, { Component } from "react";
+const message={
+    textAlign:"center"
+}
 const nameStyle={
     color:"#63223f",
-    fontSize:"2em",
-    marginRight:"3em",
+    marginRight:"3rem",
+    fontSize:"1.5rem",
+    margin:"15px 0px"
 
 
 
@@ -10,8 +14,8 @@ const nameStyle={
 const rightNameStyle=
 {
     color:"#63223f",
-    fontSize:"2em",
-    marginLeft:"3em",
+    marginLeft:"3rem",
+    fontSize:"1.5rem"
 };
 const bubble={
     fontSize:"1rem",
@@ -86,8 +90,32 @@ class Message extends Component {
         this.state={
             time:this.props.time,
             message:this.props.message,
-            name:this.props.name
+            name:this.props.name,
         };
+    }
+    componentWillMount()
+    {
+        let date=new Date();
+
+
+
+
+        let dateArr=this.state.time.split(" ");
+
+        let month=(date.getMonth()+1)>=10?(date.getMonth()+1):"0"+(date.getMonth()+1).toString();
+        let time=date.getFullYear()+"-"+month+"-"+date.getDate();
+        if(dateArr[0]==time)
+        {
+
+            this.setState({
+                time:dateArr[1]
+            });
+        }
+
+
+
+
+
     }
 
 
@@ -95,8 +123,9 @@ class Message extends Component {
         if(this.props.name==this.props.username){
             return (
 
-                <div >
-                    <p style={rightName}> {this.state.time} &nbsp;&nbsp;<span style={rightNameStyle}>{this.state.name}</span></p>
+                <div style={message}>
+                    {this.state.time}
+                    <p style={rightName}>  &nbsp;&nbsp;<span style={rightNameStyle}>{this.state.name}</span></p>
 				
                     <div style={rightBubble}>
                         <div style={rightTriangle}></div>
