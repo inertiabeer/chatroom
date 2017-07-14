@@ -56,11 +56,8 @@ class Box extends Component
         });
         	that.setState({userList:li_arr});
         });
-        console.log(document.getElementsByClassName("message_box")[0]);
-       if(document.getElementsByClassName("message_box")[0].width<=500)
-       {
-           console.log(document.getElementsByClassName("message_box")[0]);
-       }
+
+
 
 
     };

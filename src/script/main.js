@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Box from "../chatroom/Box.js";
-
-import RoomList from "../chatroom/RoomList";
+import Chatroom from "../chatroom/Chatroom.js";
 let username="";
 fetch("/getname",{
     credentials:"include"
@@ -12,11 +10,7 @@ fetch("/getname",{
         //向服务器发送这个名字
         socket.emit("sendname",data);
         username=data;
-        var element=(
-            <div className="root">
-                <RoomList/>
-                <Box username={username}/>
-            </div>);
+        var element=<Chatroom username={username}/>
         ReactDOM.render(
             element,
             document.getElementById("hello"));

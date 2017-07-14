@@ -7,7 +7,7 @@ import { Input } from "antd";
 export default class RoomList extends Component
 {
     constructor(props)
-	{
+    {
         super(props);
         this.handleAddRoom=this.handleAddRoom.bind(this);//添加聊天室的
         this.handleChange=this.handleChange.bind(this);//处理聊天室名称的
@@ -28,7 +28,7 @@ export default class RoomList extends Component
         });
     }
     handleAddRoom(event)
-	{
+    {
         event.preventDefault();
         if(this.state.value=="")
         {
@@ -101,25 +101,25 @@ export default class RoomList extends Component
 
     }
     handleLeave(event)
-	{
+    {
         if(this.state.activeroom)
-		{
+        {
             socket.emit("leave",this.state.activeroom);
         }
     }
     handleJoin(event)
-	{
+    {
         event.preventDefault();
         this.handleLeave();
         this.setState({
             activeroom:event.target.innerText
         });
-        ``
+        "";
         socket.emit("join",event.target.innerText);
 
     }
     componentDidMount()
-	{
+    {
         var that=this;
         socket.emit("load");
         socket.on("roomlist",function(data){
@@ -147,7 +147,7 @@ export default class RoomList extends Component
         });
     }
     handleChange(event)
-	{
+    {
         event.preventDefault();
         this.setState({
             value:event.target.value,
@@ -155,13 +155,13 @@ export default class RoomList extends Component
     }
 
     render()
-	{
+    {
         return (
-			<div className="roomList">
-			{/*<ul>*/}
-				{/*<li><input type="text" onChange={this.handleChange} onKeyUp={this.handleKey}/><a href="" onClick={this.handleAddRoom}>添加新房间</a></li>*/}
+            <div className="roomList">
+                {/*<ul>*/}
+                {/*<li><input type="text" onChange={this.handleChange} onKeyUp={this.handleKey}/><a href="" onClick={this.handleAddRoom}>添加新房间</a></li>*/}
 
-			{/*</ul>*/}
+                {/*</ul>*/}
                 <Menu
                     defaultSelectedKeys={["0"]}
                     defaultOpenKeys={["sub1"]}
@@ -179,7 +179,7 @@ export default class RoomList extends Component
                     {this.state.rooms}
 
                 </Menu>
-			</div>
+            </div>
         );
     }
 }

@@ -61,6 +61,7 @@ a {
 }
 a {
   margin-left:1rem;
+
 }
 #hello a:hover
 {
@@ -198,7 +199,7 @@ h1,h2,h3,h4
     position:absolute;
     left:0;
     top:0;
-    width:20%;
+    width:80%;
     height:100%;
     overflow-y:scroll;
     background-color:#fff;
@@ -209,7 +210,7 @@ h1,h2,h3,h4
     position: absolute;
     right:0;
     margin:0;
-    width:20%;
+    width:80%;
     height: 100%;
     overflow-y: scroll;
     background-color: #fff;
