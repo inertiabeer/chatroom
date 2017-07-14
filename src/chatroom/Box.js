@@ -74,7 +74,7 @@ class Box extends Component
         	let li_arr=[];
         	let list=JSON.parse(userList);
         	list.forEach(function(item,index){
-            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span><a href="">{item}</a></span></Menu.Item>);
+            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span><a href="javascript:void(0)">{item}</a></span></Menu.Item>);
         });
         	that.setState({userList:li_arr});
         });

@@ -145,7 +145,7 @@
 	function logup(event)//第一个form的
 	{
 		event.preventDefault();//禁止默认事件
-	
+
 		containers[0].style.display='none';
 		containers[1].style.display='block';
 
@@ -171,10 +171,11 @@
 			console.log(text);
 			if(text=='y')
 			{
-			location.href='http://'+location.host+'/';
-			console.log(location.host);
+//			location.href='http://'+location.host+'/';
+                history.go(0);
+
 			}
-			else 
+			else
 			{
 				alert(text);
 			}
@@ -227,14 +228,14 @@
 		xmlhttp.open('POST','/logup',true);
 		xmlhttp.setRequestHeader("Content-type", "application/json");
 		xmlhttp.send(JSON.stringify(user));
-	
+
 
 	}
 
 
 
 
-		
+
 
 
 	}
