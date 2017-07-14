@@ -5,31 +5,9 @@ import Message from "./Message.js";
 import { Menu, Icon } from 'antd';
 
 
-const box={
-    position:"absolute",
-    left:"20%",
-    width:"80%",
-    height:"100%"
-};
-const userList={
-    position:"absolute",
-    right:"0",
-    margin:'0',
-    width:'20%',
-    height:"100%",
-    overflowY:"scroll",
-    overflowX:"hidden",
-    backgroundColor:"#e8e8e8"
-}
-const message={
-    position:"absolute",
-    right:"20%",
-    margin:'0',
-    width:'80%',
-    height:"100%"
-}
+
 const message_container={
-    height:"80%",
+    height:"90%",
     overflowY:"scroll",
     overflowX:"hidden",
     padding:"1rem"
@@ -74,10 +52,15 @@ class Box extends Component
         	let li_arr=[];
         	let list=JSON.parse(userList);
         	list.forEach(function(item,index){
-            li_arr.push(<Menu.Item key={index}><Icon type="user" /><span><a href="javascript:void(0)">{item}</a></span></Menu.Item>);
+            li_arr.push(<Menu.Item key={index}><i className="arrow_icon">&#xe972;</i><span><a href="javascript:void(0)">{item}</a></span></Menu.Item>);
         });
         	that.setState({userList:li_arr});
         });
+        console.log(document.getElementsByClassName("message_box")[0]);
+       if(document.getElementsByClassName("message_box")[0].width<=500)
+       {
+           console.log(document.getElementsByClassName("message_box")[0]);
+       }
 
 
     };
@@ -96,8 +79,8 @@ class Box extends Component
     render()
     {
         return (
-            <div className='message_box' style={box}>
-                <div style={userList}>
+            <div className='message_box'>
+                <div className="userList">
                     <h1>{this.state.roomName}</h1>
                     <Menu
                         onClick={this.handleClick}
@@ -109,7 +92,7 @@ class Box extends Component
                     </Menu>
 
                 </div>
-                <div style={message}>
+                <div className="message">
                 <div style={message_container} className="message_container">{this.state.listItems}</div>
                 <Send></Send>
                 </div>

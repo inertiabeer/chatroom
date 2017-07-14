@@ -6,7 +6,9 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const moment = require("moment");
 const session = require("express-session");
+const compression=require("compression");
 const log=require("./routes/log.js");
+
 // const pg = require("pg");
 // const Pool = pg.Pool;
 // const config = {
@@ -28,6 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(logger("dev"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser("key"));
@@ -36,17 +39,22 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));//这里使用session
+app.use(compression());//这里添加压缩模块
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/js",express.static(path.join(__dirname,"dist/js")));//这里添加了一个虚拟路径
 app.use("/",log);
 app.get("/",function(req,res)
 {
     if(req.session.user)
-    { 
+    {
+        res.set({
+            "Cache-Control":"max-age=360"
+        })
         res.sendFile(path.resolve(__dirname+"/dist/index.html"));
     }
     else
     {
+
         res.sendFile(path.resolve(__dirname+"/views/login.html"));
     }
 
@@ -85,7 +93,7 @@ app.use(function(err, req, res, next) {
     res.render("error");
 });
 
-server.listen(3000,function(err){
+server.listen(80,function(err){
     if(err)
     {
         console.log(err);

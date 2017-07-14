@@ -4,16 +4,6 @@ import { Input } from "antd";
 
 
 
-
-const roomList={
-    position:"absolute",
-    left:"0",
-    top:"0",
-    width:"20%",
-    height:"100%",
-    overflowY:"scroll",
-    backgroundColor:"#e8e8e8"
-};
 export default class RoomList extends Component
 {
     constructor(props)
@@ -50,7 +40,7 @@ export default class RoomList extends Component
         }
         else{
             socket.emit("addroom",this.state.value);
-            console.log(this.state.value);
+
             this.setState({
                 value:""
             });
@@ -95,7 +85,7 @@ export default class RoomList extends Component
                     }
                     else {
                         socket.emit("addroom",this.state.value);
-                        console.log(this.state.value);
+
                         this.setState({
                             value:""
                         });
@@ -124,7 +114,7 @@ export default class RoomList extends Component
         this.setState({
             activeroom:event.target.innerText
         });
-        console.log(event.target.innerText);
+        ``
         socket.emit("join",event.target.innerText);
 
     }
@@ -134,7 +124,7 @@ export default class RoomList extends Component
         socket.emit("load");
         socket.on("roomlist",function(data){
             let roomList=JSON.parse(data);
-            console.log(data);
+
             let rooms=[];
             let roomNameList=[];
             roomList.forEach(function(item,index){
@@ -142,7 +132,7 @@ export default class RoomList extends Component
 
                 // rooms.push(<li><a href="" onClick={that.handleJoin}>{item.value}</a></li>);
                 rooms.push(<Menu.Item key={index}>
-                    <Icon type="mail" />
+                    <i className="arrow_icon">&#xe96c;</i>
                     <span><a href="" onClick={that.handleJoin}>{item.value}</a></span>
 
                 </Menu.Item>);
@@ -167,7 +157,7 @@ export default class RoomList extends Component
     render()
 	{
         return (
-			<div style={roomList}>
+			<div className="roomList">
 			{/*<ul>*/}
 				{/*<li><input type="text" onChange={this.handleChange} onKeyUp={this.handleKey}/><a href="" onClick={this.handleAddRoom}>添加新房间</a></li>*/}
 
