@@ -34,26 +34,26 @@ const triangle=
     width:"0",
     height:"0",
     border:"0.4rem solid #fff",
-    borderRight:"1.5rem solid #fefcd4",
+    borderRight:"1.5rem solid #97e8cc",
     position:"absolute",
     top:"0",
     left:"-0.4rem",
     transform: "rotate(30deg)",
-    zIndex: "1"
+    zIndex: "-1"
 };
 const rightTriangle={
     width:"0",
     height:"0",
     border:"0.4rem solid #fff",
-    borderLeft:"1.5rem solid #fefcd4",
+    borderLeft:"1.5rem solid #97e8cc",
     position:"absolute",
     top:"0",
     right:"-0.4rem",
     transform: "rotate(-30deg)",
-    zIndex: "1"
+    zIndex: "-1"
 };
 const rightContainer={
-    backgroundColor:"#fefcd4",
+    backgroundColor:"#97e8cc",
     marginRight:"1rem",
     borderRadius: "8px",
     zIndex:"100",
@@ -66,7 +66,7 @@ const rightContainer={
 };
 const container=
 {
-    backgroundColor:"#fefcd4",
+    backgroundColor:"#97e8cc",
     marginLeft:"1rem",
     borderRadius: "8px",
     zIndex:"100",

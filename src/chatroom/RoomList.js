@@ -1,6 +1,6 @@
 import React,{Component} from "react";
-import { Menu, Icon, notification} from 'antd';
-import { Input } from 'antd';
+import { Menu, Icon, notification} from "antd";
+import { Input } from "antd";
 
 
 
@@ -11,7 +11,8 @@ const roomList={
     top:"0",
     width:"20%",
     height:"100%",
-    overflowY:"scroll"
+    overflowY:"scroll",
+    backgroundColor:"#e8e8e8"
 };
 export default class RoomList extends Component
 {
@@ -43,7 +44,7 @@ export default class RoomList extends Component
         {
             // alert('房间名不能为空');
             notification["error"]({
-                message: 'Error',
+                message: "Error",
                 description: "房间名不能为空"
             });
         }
@@ -62,10 +63,10 @@ export default class RoomList extends Component
         let key=(event.keyCode?event.keyCode:event.which);
         let m_value=this.state.value.toString();//m_value='\n';因为这是一个keyup事件
 
-        if(key=='13')
+        if(key=="13")
         {
 
-            if(m_value=='\n')
+            if(m_value=="\n")
             {
 
                 this.setState({value:""});
@@ -76,7 +77,7 @@ export default class RoomList extends Component
                 if(this.state.value=="")
                 {
                     notification["error"]({
-                        message: 'Error',
+                        message: "Error",
                         description: "房间名不能为空",
                         duration: 2
 
@@ -86,7 +87,7 @@ export default class RoomList extends Component
                     if(this.state.roomList.indexOf(this.state.value)>-1)
                     {
                         notification["error"]({
-                            message: 'Error',
+                            message: "Error",
                             description: "房间已经存在",
                             duration: 2
                         });
@@ -172,8 +173,8 @@ export default class RoomList extends Component
 
 			{/*</ul>*/}
                 <Menu
-                    defaultSelectedKeys={['0']}
-                    defaultOpenKeys={['sub1']}
+                    defaultSelectedKeys={["0"]}
+                    defaultOpenKeys={["sub1"]}
                     mode="inline"
                     theme="light"
                     inlineCollapsed={this.state.collapsed}

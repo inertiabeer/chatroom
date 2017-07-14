@@ -18,7 +18,8 @@ const userList={
     width:'20%',
     height:"100%",
     overflowY:"scroll",
-    overflowX:"hidden"
+    overflowX:"hidden",
+    backgroundColor:"#e8e8e8"
 }
 const message={
     position:"absolute",
@@ -100,7 +101,6 @@ class Box extends Component
                     <h1>{this.state.roomName}</h1>
                     <Menu
                         onClick={this.handleClick}
-                        style={{ width: 240 }}
                         defaultSelectedKeys={['0']}
                         defaultOpenKeys={['sub1']}
                         mode="inline"
