@@ -21,6 +21,7 @@ class Send extends Component {
     }
     handleSubmit(event)
     {
+        event.preventDefault();
         let m_value=this.state.value;
         //这里需要调用value的字符值
 
@@ -41,6 +42,7 @@ class Send extends Component {
         }
     }
     handleKey(event){
+        event.preventDefault();
         let key=(event.keyCode?event.keyCode:event.which);
         let m_value=this.state.value.toString();//m_value='\n';因为这是一个keyup事件
 

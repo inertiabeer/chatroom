@@ -6,12 +6,7 @@ import { Menu, Icon } from 'antd';
 
 
 
-const message_container={
-    height:"90%",
-    overflowY:"scroll",
-    overflowX:"hidden",
-    padding:"1rem"
-}
+
 class Box extends Component
 {
     constructor(props) {
@@ -90,7 +85,8 @@ class Box extends Component
 
                 </div>
                 <div className="message">
-                <div style={message_container} className="message_container">{this.state.listItems}</div>
+                    <h1>{this.state.roomName}</h1>
+                <div className="message_container">{this.state.listItems}</div>
                 <Send></Send>
                 </div>
 				

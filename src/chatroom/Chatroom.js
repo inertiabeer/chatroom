@@ -1,5 +1,4 @@
 import React,{Component} from "react";
-import ReactDOM from "react-dom";
 import Box from "../chatroom/Box.js";
 
 import RoomList from "../chatroom/RoomList";
