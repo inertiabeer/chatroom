@@ -32,7 +32,7 @@ class Box extends Component
                 let data=xmlhttp.responseText;
                 if("y"==data)
                 {
-                    history.go(0);
+                    location.reload();
                 }
             }
         }
