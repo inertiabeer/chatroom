@@ -12,6 +12,9 @@ body {
   padding: 50px;
   font-size: 14px;
   font-family: "icon","Lucida Grande", Helvetica, Arial, sans-serif;
+  height:100%;
+  width:100%;
+  overflow: hidden;
 }
 
 a {
@@ -200,7 +203,7 @@ h1,h2,h3,h4
   }
   .message_container
   {
-    height:85%;
+    height:80%;
     overflow-y: scroll;
     overflow-x: hidden;
     margin:1em 0;
