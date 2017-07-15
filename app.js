@@ -164,8 +164,12 @@ io.on("connection",function(socket){
         socket.emit("serverMessage",JSON.stringify(message)); //发送回去
         socket.to(socket.room).emit("serverMessage",JSON.stringify(message));  //发送给其他客户端
         let index=roomList.IndexOf(socket.room);
-        roomList[index].datas.push(message);
-        console.log(roomList[index].datas);
+        if(index>=0)
+        {
+            roomList[index].datas.push(message);
+        }
+
+
 
 
     });
