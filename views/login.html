@@ -5,6 +5,7 @@
 	<title>用户登录</title>
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="bookmark" href="favicon.ico">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
 	<script>
 		var startDate=new Date();
 	</script>
@@ -87,6 +88,31 @@
 		{
 			font-size: 1em;
 		}
+     @media only screen and (max-width: 500px)
+     {
+         .container
+         {
+             text-align: center;
+             width: 70%;
+             border:1px solid #4A374A;
+             box-shadow: 0 0 0 2px #4A374A, 0 0 5px 5px white;
+             transition: 2s;
+
+         }
+         .container:hover
+         {
+             box-shadow: 0 0 0 2px #4A374A, 0 0 10px 8px white;
+         }
+         .container
+         {
+             position: absolute;
+             top:40%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+         }
+
+
+     }
 
 	</style>
 </head>
