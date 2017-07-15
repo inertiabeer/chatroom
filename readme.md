@@ -29,3 +29,13 @@ serverMessage: 服务端向外发送消息。
 ### 修改了webpack配置
 
 利用webpack3的配置，然后修改了一下babel，对send.js中的发送空格消息进行修改，发现两个比较有趣的事情，一个是需要用state的toString()值进行判断，另一个是keyup事件中，判断state的时候，state就已经是\n了
+
+### 改用了fetch
+
+当浏览器不支持fetch的时候，还是发ajax
+
+### 移动端适配
+
+### font icon
+
+### 调整输入法造成的错误

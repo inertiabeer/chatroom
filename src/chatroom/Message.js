@@ -62,7 +62,7 @@ const rightContainer={
     wordBreak:"break-all",
     paddingLeft:"10px",
     paddingRight:"10px",
-    fontSize:"2rem"
+    fontSize:"1.2rem"
 };
 const container=
 {
@@ -75,7 +75,7 @@ const container=
     wordBreak:"break-all",
     paddingLeft:"10px",
     paddingRight:"10px",
-	fontSize:"2rem"
+	fontSize:"1.2rem"
 
 
 };

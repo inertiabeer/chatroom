@@ -39,11 +39,13 @@ export default class Chatroom extends Component
                                 let userList=document.getElementsByClassName("userList")[0].style;
                                 if("block"==userList.display)
                                 {         userList.display="none";
+                                    document.querySelector("#overlay").classList.remove('overlay');
 
                                 }
                                 else {
                                       roomList.display="block";        
-                                      roomList.zIndex="2";             
+                                      roomList.zIndex="2";
+                                      document.querySelector("#overlay").classList.add('overlay');
 
                                 }
                                  
@@ -52,17 +54,19 @@ export default class Chatroom extends Component
 
 
                             }
-                            else {
+                            else {//判断是右边
                                 let roomList=document.getElementsByClassName("roomList")[0].style;
                                 if(roomList.display==="block")
                                 {
                                     roomList.display="none";
+                                    document.querySelector("#overlay").classList.remove('overlay');
                                 }
                                 else
                                 {
                                     let userList=document.getElementsByClassName("userList")[0].style;
                                     userList.display="block";
                                     userList.zIndex="2";
+                                    document.querySelector("#overlay").classList.add('overlay');
                                 }
                             }
                         }
