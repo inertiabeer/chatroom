@@ -35,7 +35,7 @@ a {
   font-family: "icon";
   font-style: normal;
   font-weight: normal;
-  line-height: 30px;
+  font-size: 2rem;
 
 
 }
@@ -183,9 +183,9 @@ a{
 .send input
 {
   display: inline-block;
-  width:calc(100% - 4rem);
+  width:calc(100% - 6rem);
   border:0 ;
-  height:2.4rem;
+  font-size:2rem;
   background-color: #f3f3f3;
   border-radius: 0.3em;
 }
@@ -213,7 +213,7 @@ h1,h2,h3,h4
   }
   .message_container
   {
-    height:calc(100% - 8rem);
+    height:calc(100% - 10rem);
     overflow-y: scroll;
     overflow-x: hidden;
     margin:1em 0;
