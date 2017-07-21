@@ -3,7 +3,7 @@ const htmlWP = require("html-webpack-plugin");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
-    entry: "./src/script/main.js",
+    entry: "./src/redux/demo.js",
     output: {
         path: path.join(__dirname + "/dist"),
         filename: "js/bundle.js"
