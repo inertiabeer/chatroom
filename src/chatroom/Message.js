@@ -138,7 +138,7 @@ class Message extends Component {
         else
         {
             return(
-                <div >
+                <div style={message}>
                     <p><span style={nameStyle}>{this.state.name}</span>&nbsp;&nbsp;{this.state.time}</p>
 				
                     <div style={bubble}>
