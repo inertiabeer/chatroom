@@ -6,7 +6,7 @@ const nameStyle={
     color:"#63223f",
     marginRight:"3rem",
     fontSize:"1.5rem",
-    margin:"15px 0px"
+    textAlign:"left"
 
 
 
@@ -20,6 +20,7 @@ const rightNameStyle=
 const bubble={
     fontSize:"1rem",
     position:"relative",
+    textAlign:"left"
 
 
 };
@@ -62,7 +63,8 @@ const rightContainer={
     wordBreak:"break-all",
     paddingLeft:"10px",
     paddingRight:"10px",
-    fontSize:"1.2rem"
+    fontSize:"1.2rem",
+    textAlign:"left"
 };
 const container=
 {
@@ -82,6 +84,9 @@ const container=
 const rightName={
     textAlign:"right"
 };
+const Name={
+    textAlign:"left"
+}
 
 class Message extends Component {
     constructor(props)
@@ -139,7 +144,8 @@ class Message extends Component {
         {
             return(
                 <div style={message}>
-                    <p><span style={nameStyle}>{this.state.name}</span>&nbsp;&nbsp;{this.state.time}</p>
+                    {this.state.time}
+                    <p style={Name}><span style={nameStyle}>{this.state.name}</span>&nbsp;&nbsp;</p>
 				
                     <div style={bubble}>
                         <div style={triangle}></div>
