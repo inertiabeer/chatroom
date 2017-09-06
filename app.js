@@ -9,15 +9,6 @@ const session = require("express-session");
 const compression=require("compression");
 const log=require("./routes/log.js");
 
-// const pg = require("pg");
-// const Pool = pg.Pool;
-// const config = {
-//     host: "47.94.226.150",
-//     user: "postgres",
-//     password: "986619667",
-//     database: "chatroom",
-// };
-// var pool=new Pool(config);
 
 var app = express();
 var server=require("http").createServer(app);
