@@ -33,6 +33,7 @@ app.use(session({
 app.use(compression());//这里添加压缩模块
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/js",express.static(path.join(__dirname,"dist/js")));//这里添加了一个虚拟路径
+app.use("/css", express.static(path.join(__dirname, "dist/css")));
 app.use("/",log);
 app.get("/",function(req,res)
 {
@@ -40,7 +41,7 @@ app.get("/",function(req,res)
     {
         res.set({
             "Cache-Control":"max-age=360"
-        })
+        });
         res.sendFile(path.resolve(__dirname+"/dist/index.html"));
     }
     else

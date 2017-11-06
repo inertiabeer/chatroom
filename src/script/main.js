@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import "../css/index.css";
 import Chatroom from "../chatroom/Chatroom.js";
 let username="";
 if(window.fetch)

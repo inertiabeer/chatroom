@@ -1,3 +1,6 @@
+### 运行
+运行环境里面需要安装webpack -g 
+通过webpack --watch
 ### chatroom
  登录界面由我之前写好的一个登录界面来显示，设定后端api为
  login，logout，logup，对数据库进行操作

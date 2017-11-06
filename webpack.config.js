@@ -2,6 +2,7 @@ const path = require("path");
 const htmlWP = require("html-webpack-plugin");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const ExtractTextPlugin=require("extract-text-webpack-plugin");
 module.exports = {
     devtool:"source-map",
     entry: "./src/script/main.js",
@@ -12,10 +13,10 @@ module.exports = {
     module: {
         rules: [{
             test: /\.css$/,
-            use: [
-                "style-loader",
-                "css-loader"
-            ]
+            use: ExtractTextPlugin.extract({
+                fallback:"style-loader",
+                use:"css-loader"
+            })
         },
         {
             test:/\.(png|svg|jpg|gif)$/,
@@ -54,6 +55,7 @@ module.exports = {
                 warnings: false
             }
         }),
+        new ExtractTextPlugin("css/main.css"),
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify("production")
