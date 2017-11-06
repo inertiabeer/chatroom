@@ -3,6 +3,7 @@ const htmlWP = require("html-webpack-plugin");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
+    devtool:"source-map",
     entry: "./src/script/main.js",
     output: {
         path: path.join(__dirname + "/dist"),
@@ -28,7 +29,6 @@ module.exports = {
             use:[
                 "babel-loader"
             ],
-            exclude: path.join(__dirname + "/node_modules"),
             include: path.join(__dirname + "/src")
 
         }],

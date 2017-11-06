@@ -108,7 +108,7 @@ class Message extends Component {
         let dateArr=this.state.time.split(" ");
 
         let month=(date.getMonth()+1)>=10?(date.getMonth()+1):"0"+(date.getMonth()+1).toString();
-        let time=date.getFullYear()+"-"+month+"-"+date.getDate();
+        let time = date.getFullYear() + "-" + month + "-" + (date.getDate().length > 1 ? date.getDate():("0"+date.getDate()));
         if(dateArr[0]==time)
         {
 
