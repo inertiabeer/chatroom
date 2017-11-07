@@ -2,9 +2,10 @@ const path = require("path");
 const htmlWP = require("html-webpack-plugin");
 const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const ExtractTextPlugin=require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OpenBrowerPlugin=require("open-browser-webpack-plugin");
 module.exports = {
-    devtool:"source-map",
+    devtool: "source-map",
     entry: "./src/script/main.js",
     output: {
         path: path.join(__dirname + "/dist"),
@@ -14,25 +15,43 @@ module.exports = {
         rules: [{
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                fallback:"style-loader",
-                use:"css-loader"
+                fallback: "style-loader",
+                use: ["css-loader"]
             })
         },
         {
-            test:/\.(png|svg|jpg|gif)$/,
-            use:[
-                "file-loader"
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: ["css-loader", "sass-loader"]
+            })
+        }, {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: ["css-loader", "sass-loader"]
+            })
+        },
+        {
+            test: /\.(png|svg|jpg|gif|eot|ttf|woff)$/,
+            use: [
+                {loader:"file-loader",
+                    options:{
+                        name:"../fonts/[name].[ext]"
+                    }
+                }
             ]
 
         },
         {
-            test:/\.js$/,
-            use:[
+            test: /\.js$/,
+            use: [
                 "babel-loader"
             ],
             include: path.join(__dirname + "/src")
 
-        }],
+        }
+        ],
     },
     plugins: [
         new htmlWP({
@@ -60,7 +79,8 @@ module.exports = {
             "process.env": {
                 NODE_ENV: JSON.stringify("production")
             }
-        })
+        }),
+        new OpenBrowerPlugin({url:"http://localhost"})
 
     ]
 };
