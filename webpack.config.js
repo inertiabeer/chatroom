@@ -23,18 +23,47 @@ module.exports = {
             test: /\.scss$/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
-                use: ["css-loader", "sass-loader"]
+                use: ["css-loader", "sass-loader"],
+                publicPath:"/"
             })
         },
         {
-            test: /\.(png|svg|jpg|gif|eot|ttf|woff)$/,
+            test: /\.(svg|eot|ttf|woff)$/,
             use: [
                 {loader:"file-loader",
                     options:{
-                        name:"../fonts/[name].[ext]"
+                        name:"fonts/[name].[ext]"
                     }
                 }
             ]
+
+        },
+        {
+            test:/\.(png|jpg|gif)$/,
+            use:[
+                {
+                    loader:"file-loader",
+                    options:{
+                        name:"[path][name].[ext]"
+                        // publicPath:"./fonts",
+    
+
+                    }
+
+                }
+            ]
+        },
+        {
+            test: /\.html$/,
+            use: [
+                {
+                    loader: "html-loader",
+                    options: {
+                        interpolate: true
+                    }
+                }
+            ]
+
 
         },
         {
@@ -50,7 +79,7 @@ module.exports = {
     plugins: [
         new htmlWP({
             filename: "index.html",
-            template: "index.html",
+            template: "src/html/index.html",
             minify: {
                 collapseWhitespace: false,
                 removeComments: true
@@ -68,7 +97,10 @@ module.exports = {
                 warnings: false
             }
         }),
-        new ExtractTextPlugin("css/main.css"),
+        new ExtractTextPlugin({
+            filename:"css/main.css"
+
+        }),
         new webpack.DefinePlugin({
             "process.env": {
                 NODE_ENV: JSON.stringify("production")

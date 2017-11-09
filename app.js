@@ -34,6 +34,7 @@ app.use(compression());//这里添加压缩模块
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/js",express.static(path.join(__dirname,"dist/js")));//这里添加了一个虚拟路径
 app.use("/css", express.static(path.join(__dirname, "dist/css")));
+app.use("/fonts", express.static(path.join(__dirname, "dist/fonts")));
 app.use("/",log);
 app.get("/",function(req,res)
 {
