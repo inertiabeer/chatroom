@@ -1,0 +1,5 @@
+@import '../spritesmith/sprite.scss';
+.test{
+    margin: 0 auto;
+    @include sprite($sina-home);
+}

@@ -183,6 +183,12 @@ h4 {
     overflow-y: scroll;
     background-color: #fff;
     display: none; } }
+.test {
+  margin: 0 auto;
+  background-image: url(/imgs/sprite.png);
+  background-position: 0px 0px;
+  width: 65px;
+  height: 65px; }
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable declaration-bang-space-before */
 /* stylelint-disable declaration-bang-space-before */

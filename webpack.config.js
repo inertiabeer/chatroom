@@ -4,6 +4,7 @@ const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OpenBrowerPlugin=require("open-browser-webpack-plugin");
+const SpritesmithPlugin = require("webpack-spritesmith");
 module.exports = {
     devtool: "source-map",
     entry: "./src/script/main.js",
@@ -106,7 +107,21 @@ module.exports = {
                 NODE_ENV: JSON.stringify("production")
             }
         }),
-        new OpenBrowerPlugin({url:"http://localhost"})
+        new OpenBrowerPlugin({url:"http://localhost"}),
+        new SpritesmithPlugin({
+            src: {
+                cwd: path.resolve(__dirname, "src/ico"),
+                glob: "*.png"
+            },
+            target: {
+                image: path.resolve(__dirname, "dist/imgs/sprite.png"),
+                css: path.resolve(__dirname, "src/spritesmith/sprite.scss")
+            },
+            apiOptions: {
+                cssImageRef:"/imgs/sprite.png"//图片http请求的路径
+            }
+        })
+        
 
     ]
 };
