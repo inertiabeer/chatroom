@@ -1,3 +1,5 @@
+## 0.2版本发布
+更新了很多webpack的插件.完善了脚手架的功能
 ### 运行
 运行环境里面需要安装webpack -g 
 通过webpack --watch
